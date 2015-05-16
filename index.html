@@ -15,6 +15,9 @@
 	<body>
 		<div id="wizard">
             <div class="steps-pane-container" ng-controller="stepsController">
+                <div class="logo">
+                    <img src="img/orcid-logo.png" alt="">
+                </div>
                 <ul>
                     <li class="step" ng-repeat="step in steps" ng-class="{'current-step': $index == wizardSrvc.current}" ng-model="steps" ng-cloak>
                          {{step.title}}
@@ -39,10 +42,12 @@
                             <p>The ORCID API will help your organization to link your user profiles with their ORCID record; this link will give you the ability to do things like authenticating the user ORCID, reading information from the ORCID record, updating the users record and being up to date with the latest updates the user does to the ORCID record</p>
                             <h3>If you are a:</h3>
                             <div class="types">     
-                                <div id="" class="">Editor</div>
-                                <div id="" class="">Funding agency</div>
-                                <div id="" class="">University</div>                    
-                                <div id="" class="">Other organization</div>
+                                <ul>
+                                    <li>Editor</li>
+                                    <li>Funding agency</li>
+                                    <li>University</li>
+                                    <li>Other organization</li>
+                                </ul>
                             </div>
                             <div id="descriptions">
                                 <div id="" class="university description">

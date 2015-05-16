@@ -10,6 +10,10 @@ h1, h2, h3{
 	color: $green;
 }
 
+p, ul, label{
+	font-size: 18px;
+}
+
 .btn-default{
 	background: $blue;
 	color: #FFF;
@@ -88,12 +92,13 @@ h1, h2, h3{
 	    padding: 0;
 	    margin: 0;
 	    li {
-		    border: none medium;
+		    border-bottom: 1px solid #d2d2d2;
 		    text-shadow: none;
 		    cursor: default;
       		padding: 15px;
       		color: #9b9b9b;
     		position: relative;
+    		font-size: 18px;
 		}
 		li.current-step {
 	      font-weight: normal;
@@ -115,6 +120,13 @@ h1, h2, h3{
     	li.clickable-step-link:hover {
          	color: #333;
       	}
+	}
+	.logo{
+		width: 100%;
+		text-align: left;
+		padding: 6px 0 0 15px;
+		height: 60px;
+		border-bottom: 1px solid #d2d2d2;
 	}
 }
 
