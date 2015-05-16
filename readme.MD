@@ -22,3 +22,11 @@ or
 python -m SimpleHTTPServer 8000
 
 ```
+
+### Run gulp
+
+```
+gulp
+```
+
+Source JavaScript and SCSS files are un /src folder, do not modify files that are in the root (/CSS and /JS)
