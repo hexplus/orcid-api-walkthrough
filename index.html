@@ -1,0 +1,177 @@
+<!doctype html>
+<html ng-app="wizardApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>ORCID API Walkthrough</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/fonts.min.css">
+		<link rel="stylesheet" href="css/style.min.css">
+        <style>
+            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+              display: none !important;
+            }
+        </style>
+	</head>
+	<body>
+		<div id="wizard">
+            <div class="steps-pane-container" ng-controller="stepsController">
+                <ul>
+                    <li class="step" ng-repeat="step in steps" ng-class="{'current-step': $index == wizardSrvc.current}" ng-model="steps" ng-cloak>
+                         {{step.title}}
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="contents-pane-container">
+                <div class="contents-pane" ng-controller="stepsController">
+                    
+                    <!-- Introduction -->
+                    <div title="Introduction" ng-show="wizardSrvc.current == 0" ng-cloak>
+                        <h2>ORCID API</h2>
+                        <p>Hello this is the introduction to the ORCID API</p>
+                    </div>
+                    
+                    <!-- Description -->
+                    <div title="Description" ng-show="wizardSrvc.current == 1" ng-cloak>
+                        <div>
+                            <h2>ORCID API</h2>
+                            <p>The ORCID API will help your organization to link your user profiles with their ORCID record; this link will give you the ability to do things like authenticating the user ORCID, reading information from the ORCID record, updating the users record and being up to date with the latest updates the user does to the ORCID record</p>
+                            <h3>If you are a:</h3>
+                            <div class="types">     
+                                <div id="" class="">Editor</div>
+                                <div id="" class="">Funding agency</div>
+                                <div id="" class="">University</div>                    
+                                <div id="" class="">Other organization</div>
+                            </div>
+                            <div id="descriptions">
+                                <div id="" class="university description">
+                                    <h2>Universities</h2>
+                                    <ul>
+                                        <li>ORCID will help you create new ORCID id's for your teachers or students</li>
+                                        <li>When someone ends a thesis, the ORCID id can be added to the publication and the publication can be added to the ORCID record</li>
+                                        <li>When another system or repository updates the ORCID record, the API will help you to acknowledge that change and synchronize your system with the latest changes</li>
+                                    </ul>               
+                                </div>
+                                
+                                <div id="" class="editor description">
+                                    <h2>Editors</h2>
+                                    <ul>
+                                        <li>Sent: The API will help you to obtain the ORCiD and the biographical information from authors</li>
+                                        <li>Revision: The API will help you to obtain the ORCiD, the biographical information and the activities list of the reviewers</li>
+                                        <li>Production: Include the ORCiD in the publication metadata and in the publication</li>
+                                        <li>Publication: Update the ORCID record of the author and the reviewer</li>
+                                    </ul>
+                                </div>
+                                
+                                <div id="" class="funding description">
+                                    <h2>Funding agencies</h2>
+                                    <ul>
+                                        <li>Applications: The API will help you to obtain the ORCiD and the biographical information from applicants</li>
+                                        <li>Revision: The API will help you to obtain the ORCiD, the biographical information and the activities list of the reviewers</li>
+                                        <li>Awards and recognitions: Update the ORCID record of the awarded and the reviewer</li>
+                                    </ul>
+                                </div>
+                                
+                                <div id="" class="other description">
+                                    <h2>Others</h2>
+                                    <ul>
+                                        <li>The API will facilitate the creation of new iD's</li>
+                                        <li>The API will help you to store and show the iD of the researcher in your system</li>
+                                        <li>The API will help you to synchronize the biographical information between different systems</li>
+                                        <li>The API will help you to synchronize the researcher activities between different systems</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+             
+                    <!-- Technologies -->
+                    <div title="Technologies" ng-show="wizardSrvc.current == 2" ng-cloak>
+                        <h2>ORCID API - Technologies</h2>
+                        <p>Technologies</p>     
+                        <ul>
+                            <li><a href="http://www.restapitutorial.com/lessons/whatisrest.html" target="_blank">REST</a> interact w/API via HTTP calls</li>
+                            <li><a href="http://members.orcid.org/api/tokens-through-3-legged-oauth-authorization" target="_blank">OAuth “3-legged”</a> authorization process</li>
+                            <li><a href="http://www.w3.org/XML/" target="_blank">XML</a>/<a href="http://www.json.org/" target="_blank">JSON</a> data exchange</li>
+                        </ul>
+                    </div>
+
+                    <!-- Get access token -->
+                    <div title="Get access token" ng-show="wizardSrvc.current == 3" ng-cloak>
+                        <div ng-controller="authorizationCodeController">
+                            <h2>ORCID API - Getting the authorization code</h2>
+                            <p>Here, we ask the user for permissions over his ORCID record</p>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label for="client_id">Client ID:</label>
+                                    <input type="text" name="client_id" class="form-control" ng-model="form.client_id"/>
+                                </div>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="scope" ng-model="form.scope" value="/authenticate"/> Authenticate Orcid
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="scope" ng-model="form.scope" value="/activities/read-limited"/> Read activities
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="scope" ng-model="form.scope" value="/activities/update"/> Read update 
+                                </label>       
+                            </div>  
+
+                            <button id="submit" ng-click="getAuthorizationCode()" class="btn btn-default">Get code</button> 
+                            
+                        </div>
+                    </div>
+
+                    <!-- Get token -->
+                    <div title="Get token" ng-show="wizardSrvc.current == 4" ng-cloak>
+                        <div ng-controller="tokenController">
+                            <h2>ORCID API - Technologies</h2>
+                            <p>Technologies</p>
+                            <div id="token" ng-show="access_code != null" ng-cloak>
+                                <p>This is your access code {{access_code}}</p>
+                                Client secret: <input type="text" name="client_secret" ng-model="client_secret"/><br />
+                                <button id="submit" ng-click="exchangeCode()">Exchange</button> 
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <!-- Read record -->
+                    <div title="Read record" ng-show="wizardSrvc.current == 5" ng-cloak>
+                        <h2>ORCID API - Read ORCID record</h2>
+                        <p>Read record</p>
+                    </div>
+
+                    <!-- Update record -->
+                    <div title="Update record" ng-show="wizardSrvc.current == 6" ng-cloak>
+                        <h2>ORCID API - Technologies</h2>
+                        <p>Technologies</p>     
+                        <ul>
+                            <li><a href="http://www.restapitutorial.com/lessons/whatisrest.html" target="_blank">REST</a> interact w/API via HTTP calls</li>
+                            <li><a href="http://members.orcid.org/api/tokens-through-3-legged-oauth-authorization" target="_blank">OAuth “3-legged”</a> authorization process</li>
+                            <li><a href="http://www.w3.org/XML/" target="_blank">XML</a>/<a href="http://www.json.org/" target="_blank">JSON</a> data exchange</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="wizard-btn-container" ng-controller="controlsController">
+                    <button class="wizard-nav-btn wizard-previous-button" ng-class="{'disabled-button': wizardSrvc.current == 0}" ng-click="back()">Back</button>
+                    <button class="wizard-nav-btn wizard-next-button" ng-click="next()" ng-show="wizardSrvc.current != 6" ng-cloak>Next</button>
+                    <button class="wizard-nav-btn wizard-finish-button wizard-hidden-button" ng-show="wizardSrvc.current == 6" ng-click="finish()" ng-cloak>Finish</button>
+                </div>
+
+            </div>
+        </div>	
+        <!-- Scripts -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-cookies.js"></script>
+        <script src="js/app.min.js" type="text/javascript" ></script>
+	</body>
+</html>
