@@ -43,7 +43,7 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 	/* Only for dev environment */
 	if (location.hostname == 'localhost'){
 		$scope.form = {};
-		$scope.form.client_id = '0000-0003-3064-5929';
+		$scope.form.client_id = 'APP-1X454QYQ66U6XW7X';
 	}
 
 	$scope.authString = "http://[api_url]/oauth/authorize?client_id=[client_id]&response_type=code&redirect_uri=[redirect_uri]&scope=[scope]";
@@ -54,7 +54,7 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 		// Build the string
 		var apiUri = $scope.authString;
 
-		apiUri = apiUri.replace('[api_url]', 'qa.orcid.org');
+		apiUri = apiUri.replace('[api_url]', 'sandbox.orcid.org');
 		apiUri = apiUri.replace('[client_id]', $scope.form.client_id);
 		apiUri = apiUri.replace('[redirect_uri]', 'http://' + location.hostname + ':8000');
 		apiUri = apiUri.replace('[scope]', $scope.form.scope);
@@ -76,7 +76,7 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 
 }]);
 
-wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', function($scope, $location, $cookies){
+wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', '$http', function($scope, $location, $cookies, $http){
 
 	/* THIS CONTROLLER NEEDS TO BE UPDATED */
 
@@ -95,10 +95,9 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 		}
 	};
 
-	$scope.exchangeCode = function() {		
-		
+	$scope.exchangeCode = function() {				
 		$http({
-		   	url:'http://pub.qa.orcid.org/oauth/token',
+		   	url:'http://pub.sandbox.orcid.org/oauth/token',
 		    method:'post',
 		    headers: {'Content-Type': 'application/x-www-form-urlencoded',
 		              'Accept': 'application/json',
@@ -112,10 +111,10 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 		       return foo;
 		    },
 		    data: {
-					client_id:'0000-0003-3064-5929',
-	                client_secret:'20877677-5001-4d86-820e-5f527aa9bd14',
+					client_id: $scope.client_id,
+	                client_secret: $scope.client_secret,
 	                grant_type:'authorization_code',
-	                redirect_uri:'http://localhost:8080/orcid-api-walkthrough/',
+	                redirect_uri:'http://localhost:8000',
 				    code:$scope.access_code
 			}})
 			.success (function(data){	
