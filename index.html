@@ -32,12 +32,26 @@
                     
                     <!-- Introduction -->
                     <div title="Introduction" ng-show="wizardSrvc.current == 0" ng-cloak>
-                        <h2>ORCID API</h2>
-                        <p>Hello this is the introduction to the ORCID API</p>
+                        <h2>ORCID API - Introduction</h2>
+                        <p>ORCID offers several APIs (Application Programming Interfaces) that allow your systems to intreact with the ORCID registry:</p>
+                        <ul>
+                            <li><b>Public API:</b> Freely available to anyone</li>
+                            <li><b>Member API:</b> Available to organizations that support ORCID with an annual membership subscription</li>
+                        </ul>
+                        <p>Using the APIs, your system can:</p>
+                        <table class="api-chart">
+                            <tbody>
+                                <tr><td><img src="img/ID_symbol.svg"></td><td><h3>Get iDs</h3></td><td>Prompt users to provide their ORCID iD using our authentication system</td><td><b>Public / Member</b></td></tr>
+                                <tr><td><img src="img/glyphicons-28-search-A6CE39.svg"></td><td><h3>Search</h3></td><td>Run automated searches of the ORCID registry</td><td><b>Public / Member</b></td></tr>
+                                <tr><td><img src="img/glyphicons-52-eye-open-A6CE39.svg"></td><td><h3>Read</h3></td><td>Retrieve data from ORCID records (and copy it into your system)</td><td><b>Public / Member</b></td></tr>
+                                <tr><td><img src="img/glyphicons-31-pencil-A6CE39.svg"></td><td><h3>WRITE</h3></td><td>Add/update new works, funding items, affiliations & biographical information</td><td><b>Member</b></td></tr>
+                                 <tr><td><img src="img/glyphicons-433-plus-A6CE39.svg"></td><td><h3>Create</h3></td><td>Create new ORCID records for your researchers using an "on-demand" process</td><td><b>Member</b></td></tr>
+                            </tbody>
+                        </table>
                     </div>
                     
                     <!-- Description -->
-                    <div title="Description" ng-show="wizardSrvc.current == 1" ng-cloak>
+                    <div title="Description" id="description" ng-show="wizardSrvc.current == 1" ng-cloak>
                         <div>
                             <h2>ORCID API</h2>
                             <p>The ORCID API will help your organization to link your user profiles with their ORCID record; this link will give you the ability to do things like authenticating the user ORCID, reading information from the ORCID record, updating the users record and being up to date with the latest updates the user does to the ORCID record</p>
