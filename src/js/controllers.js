@@ -1,7 +1,7 @@
 wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location', function($scope, wizardSrvc, $location){
 	$scope.steps = [
 		{'title' : 'Introduction'},
-		{'title' : 'Description'},
+		{'title' : 'Accessing the API'},
 		{'title' : 'Technologies'},
 		{'title' : 'Get access token'},
 		{'title' : 'Get token'},
