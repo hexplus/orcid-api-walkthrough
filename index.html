@@ -156,32 +156,32 @@
 						<!-- Show access token info-->
 						<div title="Access token info" ng-show="wizardSrvc.current == 5" ng-cloak>
 							<div class="token_items">							
-								<a href="#token">
+								<a href="#token" ng-mouseenter="show('token')">
 									<span class="key">access_token</span>: <span class="value">{{token.access_token}}</span>
 								</a>						
-								<a href="#expiration">
+								<a href="#expiration" ng-mouseenter="show('expiration')">
 									<span class="key">expires_in</span>: <span class="value">{{token.expires_in}}</span>
 								</a>						
-								<a href="#name">
+								<a href="#name" ng-mouseenter="show('name')">
 									<span class="key">name</span>: <span class="value">{{token.name}}</span>
 								</a>
-								<a href="#orcid">
+								<a href="#orcid" ng-mouseenter="show('orcid')">
 									<span class="key">orcid</span>: <span class="value">{{token.orcid}}</span>
 								</a>
-								<a href="#scope">
+								<a href="#scope" ng-mouseenter="show('scope')">
 									<span class="key">scope</span>: <span class="value">{{token.scope}}</span>
 								</a>
-								<a href="#type">
+								<a href="#type" ng-mouseenter="show('type')">
 									<span class="key">token_type</span>: <span class="value">{{token.token_type}}</span>
 								</a>
 							</div>
 							<div class="token_items_descriptions">
-								<p id="item_description" class="description hidden" style="display:none;">access_token description</p>
-								<p id="item_description" class="description hidden" style="display:none;">expires_in description</p>
-								<p id="item_description" class="description hidden" style="display:none;">name description</p>
-								<p id="item_description" class="description hidden" style="display:none;">orcid description</p>
-								<p id="item_description" class="description hidden" style="display:none;">scope description</p>
-								<p id="item_description" class="description hidden" style="display:none;">token_type description</p>							
+								<p id="access_token" class="description" ng-class="visible : show_access_token == true">access_token description</p>
+								<p id="expires_in" class="description" ng-class="visible : show_expires_in == true">expires_in description</p>
+								<p id="name" class="description" ng-class="visible : show_name == true">name description</p>
+								<p id="orcid" class="description" ng-class="visible : show_orcid == true">orcid description</p>
+								<p id="scope" class="description" ng-class="visible : show_scope == true">scope description</p>
+								<p id="token_type" class="description" ng-class="visible : show_token_type == true">token_type description</p>							
 							</div>
 						</div>
 					</div>
