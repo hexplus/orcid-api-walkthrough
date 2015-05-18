@@ -5,6 +5,7 @@ wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location',
 		{'title' : 'Technologies'},
 		{'title' : 'Get access token'},
 		{'title' : 'Get token'},
+		{'title' : 'Show token'},
 		{'title' : 'Read record'},
 		{'title' : 'Update record'}
 	];
@@ -80,6 +81,11 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 
 	/* THIS CONTROLLER NEEDS TO BE UPDATED */
 
+	/* Only for dev environment */
+	if (location.hostname == 'localhost'){
+		$scope.client_secret = '8fa38bea-48e2-4238-9479-e55448ffa225';
+	}	
+	
 	$scope.access_code = null;
 	$scope.client_id = null;
 	
@@ -117,19 +123,17 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	                redirect_uri:'http://localhost:8000',
 				    code:$scope.access_code
 			}})
-			.success (function(data){	
-		  		console.log(data)
-				$scope.showCode(data);
+			.success (function(data){			  		
+				$scope.wizardSrvc.current = 5;
+				$scope.token = data;				
+				console.log('Token showld be there!!!');
 			})
 			.error(function(data, status, headers, config){
 		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
 		});																							
 	};
 	
-	$scope.showCode = function(tokenData) {
-		console.log('Token is: ' + tokenData.access_token);
-		console.log('ORCID: ' + tokenData.orcid);
-	};
+	
 
 	$scope.getCode();
 }]);

@@ -134,34 +134,66 @@
                             
                         </div>
                     </div>
+	
+					<!-- These two should share the controller... is this the way?-->
+					<div ng-controller="tokenController">
+						<!-- Get token -->					
+						<div title="Get token" ng-show="wizardSrvc.current == 4" ng-cloak>                        
+							<h2>ORCID API - Technologies</h2>
+							<p>Technologies</p>
+							<div id="token" ng-show="access_code != null" ng-cloak>
+								<p>This is your access code {{access_code}}</p>
+								<div class="form-inline">
+									<div class="form-group">
+										<label for="client_id">Client secret:</label>
+										<input type="text" name="client_secret" ng-model="client_secret" class="form-control" />
+									</div>
+								</div>
+								<button id="submit" class="btn btn-default" ng-click="exchangeCode()">Exchange</button> 
+							</div>
+						</div>
 
-                    <!-- Get token -->
-                    <div title="Get token" ng-show="wizardSrvc.current == 4" ng-cloak>
-                        <div ng-controller="tokenController">
-                            <h2>ORCID API - Technologies</h2>
-                            <p>Technologies</p>
-                            <div id="token" ng-show="access_code != null" ng-cloak>
-                                <p>This is your access code {{access_code}}</p>
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <label for="client_id">Client secret:</label>
-                                        <input type="text" name="client_secret" ng-model="client_secret" class="form-control" />
-                                    </div>
-                                </div>
-                                <button id="submit" class="btn btn-default" ng-click="exchangeCode()">Exchange</button> 
-                            </div>
-                        </div>                        
-                    </div>
-
+						<!-- Show access token info-->
+						<div title="Access token info" ng-show="wizardSrvc.current == 5" ng-cloak>
+							<div class="token_items">							
+								<a href="#token">
+									<span class="key">access_token</span>: <span class="value">{{token.access_token}}</span>
+								</a>						
+								<a href="#expiration">
+									<span class="key">expires_in</span>: <span class="value">{{token.expires_in}}</span>
+								</a>						
+								<a href="#name">
+									<span class="key">name</span>: <span class="value">{{token.name}}</span>
+								</a>
+								<a href="#orcid">
+									<span class="key">orcid</span>: <span class="value">{{token.orcid}}</span>
+								</a>
+								<a href="#scope">
+									<span class="key">scope</span>: <span class="value">{{token.scope}}</span>
+								</a>
+								<a href="#type">
+									<span class="key">token_type</span>: <span class="value">{{token.token_type}}</span>
+								</a>
+							</div>
+							<div class="token_items_descriptions">
+								<p id="item_description" class="description hidden" style="display:none;">access_token description</p>
+								<p id="item_description" class="description hidden" style="display:none;">expires_in description</p>
+								<p id="item_description" class="description hidden" style="display:none;">name description</p>
+								<p id="item_description" class="description hidden" style="display:none;">orcid description</p>
+								<p id="item_description" class="description hidden" style="display:none;">scope description</p>
+								<p id="item_description" class="description hidden" style="display:none;">token_type description</p>							
+							</div>
+						</div>
+					</div>
 					
                     <!-- Read record -->
-                    <div title="Read record" ng-show="wizardSrvc.current == 5" ng-cloak>
+                    <div title="Read record" ng-show="wizardSrvc.current == 6" ng-cloak>
                         <h2>ORCID API - Read ORCID record</h2>
                         <p>Read record</p>
                     </div>
 
                     <!-- Update record -->
-                    <div title="Update record" ng-show="wizardSrvc.current == 6" ng-cloak>
+                    <div title="Update record" ng-show="wizardSrvc.current == 7" ng-cloak>
                         <h2>ORCID API - Technologies</h2>
                         <p>Technologies</p>     
                         <ul>
@@ -174,8 +206,8 @@
 
                 <div class="wizard-btn-container" ng-controller="controlsController">
                     <button class="wizard-nav-btn wizard-previous-button" ng-class="{'disabled-button': wizardSrvc.current == 0}" ng-click="back()">Back</button>
-                    <button class="wizard-nav-btn wizard-next-button" ng-click="next()" ng-show="wizardSrvc.current != 6" ng-cloak>Next</button>
-                    <button class="wizard-nav-btn wizard-finish-button wizard-hidden-button" ng-show="wizardSrvc.current == 6" ng-click="finish()" ng-cloak>Finish</button>
+                    <button class="wizard-nav-btn wizard-next-button" ng-click="next()" ng-show="wizardSrvc.current != 7" ng-cloak>Next</button>
+                    <button class="wizard-nav-btn wizard-finish-button wizard-hidden-button" ng-show="wizardSrvc.current == 7" ng-click="finish()" ng-cloak>Finish</button>
                 </div>
 
             </div>
