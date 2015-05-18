@@ -118,7 +118,7 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 				    code:$scope.access_code
 			}})
 			.success (function(data){	
-		  		console.log(data);
+		  		console.log(data)
 			})
 			.error(function(data, status, headers, config){
 		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
@@ -128,20 +128,3 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	$scope.getCode();
 }]);
 
-
-
-/*
-
-  REVIEW
-
-
-OauthController.controller("IntroductionController", [ '$scope', '$http','$routeParams', '$location',
-	function($scope, $http, $routeParams, $location) {
-		var code = $location.search()['code'];
-		if (code === undefined || code === null) {
-			$location.path("/");
-		} else {
-			$location.path("/get_token");
-		}
-	} 
-]); */
