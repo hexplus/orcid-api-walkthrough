@@ -119,10 +119,16 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 			}})
 			.success (function(data){	
 		  		console.log(data)
+				$scope.showCode(data);
 			})
 			.error(function(data, status, headers, config){
 		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
 		});																							
+	};
+	
+	$scope.showCode = function(tokenData) {
+		console.log('Token is: ' + tokenData.access_token);
+		console.log('ORCID: ' + tokenData.orcid);
 	};
 
 	$scope.getCode();
