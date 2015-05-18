@@ -1,7 +1,7 @@
 wizardNgModule.service('wizardSrvc', ['$rootScope', function($rootScope){
 
 	var srv = {
-		current: location.hostname == 'localhost' ? 3 : 0, 
+		current: 0, 
 		elements: document.getElementsByClassName("step"),
 		back: function(){
 			if(srv.current > 0){

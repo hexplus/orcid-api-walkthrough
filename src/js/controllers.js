@@ -134,4 +134,4 @@ OauthController.controller("IntroductionController", [ '$scope', '$http','$route
 			$location.path("/get_token");
 		}
 	} 
-]);
+]); */
