@@ -190,12 +190,12 @@
 								</a>
 							</div>
 							<div class="token_items_descriptions">
-								<p id="access_token" class="description" ng-class="visible : show_access_token == true">access_token description</p>
-								<p id="expires_in" class="description" ng-class="visible : show_expires_in == true">expires_in description</p>
-								<p id="name" class="description" ng-class="visible : show_name == true">name description</p>
-								<p id="orcid" class="description" ng-class="visible : show_orcid == true">orcid description</p>
-								<p id="scope" class="description" ng-class="visible : show_scope == true">scope description</p>
-								<p id="token_type" class="description" ng-class="visible : show_token_type == true">token_type description</p>							
+								<p id="access_token" class="description" ng-class="(show_access_token == true) ? 'visible' : 'hidden'">access_token description</p>
+								<p id="expires_in" class="description" ng-class="(show_expires_in == true) ? 'visible' : 'hidden'">expires_in description</p>
+								<p id="name" class="description" ng-class="(show_name == true) ? 'visible' : 'hidden'">name description</p>
+								<p id="orcid" class="description" ng-class="(show_orcid == true) ? 'visible' : 'hidden'">orcid description</p>
+								<p id="scope" class="description" ng-class="(show_scope == true) ? 'visible' : 'hidden'">scope description</p>
+								<p id="token_type" class="description" ng-class="(show_token_type == true) ? 'visible' : 'hidden'">token_type description</p>							
 							</div>
 						</div>
 					</div>
