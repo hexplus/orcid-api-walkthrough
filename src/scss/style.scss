@@ -14,6 +14,36 @@ p, ul, label{
 	font-size: 18px;
 }
 
+table{
+	margin: 40px 20px;
+	background-color: #fff;
+	border-radius: 16px;
+	box-shadow: 0 0 5px #999;
+}
+
+td{
+	padding: 16px;
+	color: #9B9B9B;
+	font-size: 1.2em;
+}
+
+tr{
+	border-bottom: 1px solid #d2d2d2;
+	vertical-align: center;
+}
+
+.api-chart img{
+	width: 64px;
+}
+
+.api-chart h3{
+	text-transform: uppercase;
+}
+
+tr:last-of-type{
+	border-bottom: none;
+}
+
 .btn-default{
 	background: $blue;
 	color: #FFF;
@@ -167,10 +197,4 @@ p, ul, label{
   color: rgba(0, 0, 0, 0.3);
 }
 
-.hidden {
-	display: none;
-}
 
-.visible {
-	display: block;
-}
