@@ -79,6 +79,13 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 
 wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', '$http', function($scope, $location, $cookies, $http){
 
+	$scope.show_access_token=false;
+	$scope.expires_in=false;
+	$scope.name=false;
+	$scope.orcid=false;
+	$scope.scope=false;
+	$scope.token_type=false;
+
 	/* THIS CONTROLLER NEEDS TO BE UPDATED */
 
 	/* Only for dev environment */
@@ -125,15 +132,43 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 			}})
 			.success (function(data){			  		
 				$scope.wizardSrvc.current = 5;
-				$scope.token = data;				
-				console.log('Token showld be there!!!');
+				$scope.token = data;
 			})
 			.error(function(data, status, headers, config){
 		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
 		});																							
 	};
 	
-	
+	$scope.show = function(divId) {
+		$scope.show_access_token=false;
+		$scope.show_expires_in=false;
+		$scope.show_name=false;
+		$scope.show_orcid=false;
+		$scope.show_scope=false;
+		$scope.show_token_type=false;
+		console.log(divId)
+		switch(divId) {
+			case 'token':
+				$scope.show_access_token=true;
+				break;
+			case 'expiration':
+				$scope.show_expires_in=true;
+				break;
+			case 'name':
+				$scope.show_name=true;
+				break;
+			case 'orcid':
+				$scope.show_orcid=true;
+				break;
+			case 'scope':
+				$scope.show_scope=true;
+				break;
+			case 'type':
+				$scope.show_token_type=true;
+				break;
+			
+		}
+	};
 
 	$scope.getCode();
 }]);
