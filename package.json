@@ -1,0 +1,40 @@
+{
+  "name": "orcid-hackathon-2015",
+  "version": "0.0.1",
+  "description": "A walkthrough page that will show you how the orcid api works and how you can interact with it",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.2.0",
+    "gulp-cache": "^0.2.9",
+    "gulp-concat": "^2.5.2",
+    "gulp-livereload": "^3.8.0",
+    "gulp-minify-css": "^1.1.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-ruby-sass": "^1.0.5",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-jshint": "^1.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexplus/orcid-hackathon-2015.git"
+  },
+  "keywords": [
+    "orcid",
+    "hackaton",
+    "code-fest",
+    "barcelona"
+  ],
+  "author": "Fran Ramirez, Angel Montenegro, Liz Krznarich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hexplus/orcid-hackathon-2015/issues"
+  },
+  "homepage": "https://github.com/hexplus/orcid-hackathon-2015#readme"
+}
