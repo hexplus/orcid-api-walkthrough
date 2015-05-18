@@ -1,4 +1,4 @@
-wizardNgModule.controller('stepsController', ['$scope','wizardSrvc', function($scope, wizardSrvc){
+wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location', function($scope, wizardSrvc, $location){
 	$scope.steps = [
 		{'title' : 'Introduction'},
 		{'title' : 'Description'},
@@ -8,7 +8,18 @@ wizardNgModule.controller('stepsController', ['$scope','wizardSrvc', function($s
 		{'title' : 'Read record'},
 		{'title' : 'Update record'}
 	];
+	
+	$scope.init = function() {
+		var code = $location.search()['code'];
+		if (code === undefined || code === null) {
+			console.log('Nothing here');
+		} else {
+			$scope.wizardSrvc.current = 4;
+		}
+	}
+	
 	$scope.wizardSrvc = wizardSrvc;
+	$scope.init();
 }]);
 
 wizardNgModule.controller('controlsController', ['$scope', 'wizardSrvc', function($scope, wizardSrvc){
@@ -45,7 +56,7 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 
 		apiUri = apiUri.replace('[api_url]', 'qa.orcid.org');
 		apiUri = apiUri.replace('[client_id]', $scope.form.client_id);
-		apiUri = apiUri.replace('[redirect_uri]', location.hostname + ':8000');
+		apiUri = apiUri.replace('[redirect_uri]', 'http://' + location.hostname + ':8000');
 		apiUri = apiUri.replace('[scope]', $scope.form.scope);
 		
 		console.log(apiUri);
@@ -53,7 +64,7 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 		// Save values in cookies so we can use them later
 		$cookies.put('current', $scope.wizardSrvc.current); //Current Wizard location
 		$cookies.put('orcid_oauth2_client_id', $scope.form.client_id);
-		$cookies.put('orcid_oauth2_redirect_uri', location.hostname+ ':8000');
+		$cookies.put('orcid_oauth2_redirect_uri', 'http://' + location.hostname+ ':8000');
 
 		
 		setTimeout(function() {
