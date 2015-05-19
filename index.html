@@ -49,11 +49,25 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Technologies -->
+                    <div title="Technologies" ng-show="wizardSrvc.current == 1" ng-cloak>
+                        <h2>ORCID API - Technologies</h2>
+                        <p>Technologies</p> 
+                        <h3>REST</h3>   
+                        <h3>OAuth</h3> 
+                        <h3>XML/JSON</h3>   
+                        <ul>
+                            <li><a href="http://www.restapitutorial.com/lessons/whatisrest.html" target="_blank">REST</a> interact w/API via HTTP calls</li>
+                            <li><a href="http://members.orcid.org/api/tokens-through-3-legged-oauth-authorization" target="_blank">OAuth “3-legged”</a> authorization process</li>
+                            <li><a href="http://www.w3.org/XML/" target="_blank">XML</a>/<a href="http://www.json.org/" target="_blank">JSON</a> data exchange</li>
+                        </ul>
+                    </div>
                     
                     <!-- Accessing the API -->
-                    <div title="Accessing the API" ng-show="wizardSrvc.current == 1" ng-cloak>
+                    <div title="Accessing the API" ng-show="wizardSrvc.current == 2" ng-cloak>
                         <div>
-                            <h2>ORCID API</h2>
+                            <h2>ORCID API - Accessing</h2>
                             <p>The ORCID API will help your organization to link your user profiles with their ORCID record; this link will give you the ability to do things like authenticating the user ORCID, reading information from the ORCID record, updating the users record and being up to date with the latest updates the user does to the ORCID record</p>
                             <h3>If you are a:</h3>
                             <div class="types">     
@@ -106,16 +120,7 @@
                         </div>
                     </div>
              
-                    <!-- Technologies -->
-                    <div title="Technologies" ng-show="wizardSrvc.current == 2" ng-cloak>
-                        <h2>ORCID API - Technologies</h2>
-                        <p>Technologies</p>     
-                        <ul>
-                            <li><a href="http://www.restapitutorial.com/lessons/whatisrest.html" target="_blank">REST</a> interact w/API via HTTP calls</li>
-                            <li><a href="http://members.orcid.org/api/tokens-through-3-legged-oauth-authorization" target="_blank">OAuth “3-legged”</a> authorization process</li>
-                            <li><a href="http://www.w3.org/XML/" target="_blank">XML</a>/<a href="http://www.json.org/" target="_blank">JSON</a> data exchange</li>
-                        </ul>
-                    </div>
+                    
 
                     <!-- Get access token -->
                     <div title="Get access token" ng-show="wizardSrvc.current == 3" ng-cloak>
@@ -230,6 +235,8 @@
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-route.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-cookies.js"></script>
-        <script src="js/app.min.js" type="text/javascript" ></script>
+         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-resource.js"></script>
+        <script src="js/app.js" type="text/javascript" ></script>
+
 	</body>
 </html>

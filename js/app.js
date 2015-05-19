@@ -1,13 +1,13 @@
 var wizardNgModule = angular.module('wizardApp',['ngCookies'])
-.config(['$locationProvider', function($locationProvider) {
+.config(['$locationProvider', function($locationProvider) { 
         $locationProvider.html5Mode(true);
     }]);
 
 wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location', function($scope, wizardSrvc, $location){
 	$scope.steps = [
 		{'title' : 'Introduction'},
-		{'title' : 'Accessing the API'},
 		{'title' : 'Technologies'},
+		{'title' : 'Accessing the API'},
 		{'title' : 'Get access token'},
 		{'title' : 'Get token'},
 		{'title' : 'Show token'},
