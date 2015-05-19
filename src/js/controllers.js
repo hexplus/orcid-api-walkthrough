@@ -12,9 +12,12 @@ wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location',
 	
 	$scope.init = function() {
 		var code = $location.search()['code'];
+
 		if (code === undefined || code === null) {
 			console.log('Nothing here');
 		} else {
+			//strip extra characters from code
+			code = code.substr(0,6);
 			$scope.wizardSrvc.current = 4;
 		}
 	}
@@ -100,16 +103,22 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	$scope.client_id = null;
 	
 	$scope.getCode = function() {
+		
 		$scope.access_code = $location.search()['code'];
 		$scope.client_id = $cookies.get('orcid_oauth2_client_id');																			
 		// If the code is not specified, return the view
 		// to the root view
 		if ($scope.access_code === undefined || $scope.access_code === null) {
 			$location.path("/");
+		} else{
+			//strip extra characters from code
+			var rawCode = $location.search()['code'];
+			$scope.access_code = rawCode.substr(0,6);
 		}
 	};
 
-	$scope.exchangeCode = function() {				
+	$scope.exchangeCode = function() {	
+		console.log("real code " + $scope.access_code);			
 		$http({
 		   	url:'http://pub.sandbox.orcid.org/oauth/token',
 		    method:'post',
