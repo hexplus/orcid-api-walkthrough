@@ -32,7 +32,7 @@
                     
                     <!-- Introduction -->
                     <div title="Introduction" ng-show="wizardSrvc.current == 0" ng-cloak>
-                        <h2>ORCID API - Introduction</h2>
+                        <h2>Introduction</h2>
                         <p>ORCID offers several APIs (Application Programming Interfaces) that allow your systems to intreact with the ORCID registry:</p>
                         <ul>
                             <li><b>Public API:</b> Freely available to anyone</li>
@@ -52,69 +52,35 @@
                     
                     <!-- Accessing the API -->
                     <div title="Accessing the API" ng-show="wizardSrvc.current == 1" ng-cloak>
-                        <div>
-                            <h2>ORCID API</h2>
-                            <p>The ORCID API will help your organization to link your user profiles with their ORCID record; this link will give you the ability to do things like authenticating the user ORCID, reading information from the ORCID record, updating the users record and being up to date with the latest updates the user does to the ORCID record</p>
-                            <h3>If you are a:</h3>
-                            <div class="types">     
-                                <ul>
-                                    <li>Editor</li>
-                                    <li>Funding agency</li>
-                                    <li>University</li>
-                                    <li>Other organization</li>
-                                </ul>
-                            </div>
-                            <div id="descriptions">
-                                <div id="" class="university description">
-                                    <h2>Universities</h2>
-                                    <ul>
-                                        <li>ORCID will help you create new ORCID id's for your teachers or students</li>
-                                        <li>When someone ends a thesis, the ORCID id can be added to the publication and the publication can be added to the ORCID record</li>
-                                        <li>When another system or repository updates the ORCID record, the API will help you to acknowledge that change and synchronize your system with the latest changes</li>
-                                    </ul>               
-                                </div>
-                                
-                                <div id="" class="editor description">
-                                    <h2>Editors</h2>
-                                    <ul>
-                                        <li>Sent: The API will help you to obtain the ORCiD and the biographical information from authors</li>
-                                        <li>Revision: The API will help you to obtain the ORCiD, the biographical information and the activities list of the reviewers</li>
-                                        <li>Production: Include the ORCiD in the publication metadata and in the publication</li>
-                                        <li>Publication: Update the ORCID record of the author and the reviewer</li>
-                                    </ul>
-                                </div>
-                                
-                                <div id="" class="funding description">
-                                    <h2>Funding agencies</h2>
-                                    <ul>
-                                        <li>Applications: The API will help you to obtain the ORCiD and the biographical information from applicants</li>
-                                        <li>Revision: The API will help you to obtain the ORCiD, the biographical information and the activities list of the reviewers</li>
-                                        <li>Awards and recognitions: Update the ORCID record of the awarded and the reviewer</li>
-                                    </ul>
-                                </div>
-                                
-                                <div id="" class="other description">
-                                    <h2>Others</h2>
-                                    <ul>
-                                        <li>The API will facilitate the creation of new iD's</li>
-                                        <li>The API will help you to store and show the iD of the researcher in your system</li>
-                                        <li>The API will help you to synchronize the biographical information between different systems</li>
-                                        <li>The API will help you to synchronize the researcher activities between different systems</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                            <h2>Accessing the APIs</h2>
+                            <p>Accessing any of the ORCID APIs requires a set of credentials consisting of:</p>
+                            <ul>
+                                <li><b>Client ID</b> <em>(ex: API APP-1X454QYQ66U6XW7X)</em></li>
+                                <li><b>Client Secret</b> <em>(ex: 8fa38bea-48e2-4238-9479-e55448ffa225)</em></li>
+                            </ul>
+                            <p>These credentials are simliar to a username and password.</p>
+
+                            <h3>Public API Credentials</h3>
+                            <p>Public API credentials are freely available to any ORCID users and are accessed through the Developer Tools section of your ORCID record.<br><a href="http://members.orcid.org/api/accessing-public-api" target="_blank">Learn more about Public API credentials</a></p>
+
+                            <h3>Member API Credentials</h3>
+                            <p>Member API credentials for the live ORCID registry are available only to ORCID member organizations that have successfully built and tested an application in our test environment, the Sandbox. <a href="http://members.orcid.org/api/introduction-orcid-member-api#SandboxCreds" target="_blank">Learn more about the Sandbox</a></p>
+                           <p>For this tutorial, we'll be using the Sandbox environment. To complete the remainder of the tutorial, you'll need to get a set of Sandbox API credentials.</p>
+                            <br>
+                            <a href="https://orcid.org/content/register-client-application-sandbox" class="btn btn-default" target="_blank">Get Sandbox API Credentials</a>
+
+ 
                     </div>
              
-                    <!-- Technologies -->
-                    <div title="Technologies" ng-show="wizardSrvc.current == 2" ng-cloak>
-                        <h2>ORCID API - Technologies</h2>
-                        <p>Technologies</p>     
-                        <ul>
-                            <li><a href="http://www.restapitutorial.com/lessons/whatisrest.html" target="_blank">REST</a> interact w/API via HTTP calls</li>
-                            <li><a href="http://members.orcid.org/api/tokens-through-3-legged-oauth-authorization" target="_blank">OAuth “3-legged”</a> authorization process</li>
-                            <li><a href="http://www.w3.org/XML/" target="_blank">XML</a>/<a href="http://www.json.org/" target="_blank">JSON</a> data exchange</li>
-                        </ul>
+                    <!-- Using the API -->
+                    <div title="Using the API" ng-show="wizardSrvc.current == 2" ng-cloak>
+                        <h2>Using the API</h2>   
+                        <ol>
+                            <li>Request permission from the user</li>
+                            <li>Get an authorization code</li>
+                            <li>Exchange the authorization code for an access token</li>
+                            <li>Use the access token in API calls that read from or write to the user's record</li>
+                        </ol>
                     </div>
 
                     <!-- Get access token -->
@@ -136,7 +102,7 @@
 					<div ng-controller="tokenController">
 						<!-- Get token -->					
 						<div title="Get token" ng-show="wizardSrvc.current == 4" ng-cloak>                        
-							<h2>ORCID API - Technologies</h2>
+							<h2>Get Token</h2>
 							<p>Technologies</p>
 							<div id="token" ng-show="access_code != null" ng-cloak>
 								<p>This is your access code {{access_code}}</p>
@@ -184,7 +150,7 @@
 								<p id="scope" class="description" ng-class="(show_scope == true) ? 'visible' : 'hidden'">scope description</p>
 								<p id="token_type" class="description" ng-class="(show_token_type == true) ? 'visible' : 'hidden'">token_type description</p>							
 							</div>		
-                            					
+
 						</div>
 						
 						<!-- Read record -->
