@@ -197,4 +197,33 @@ tr:last-of-type{
   color: rgba(0, 0, 0, 0.3);
 }
 
+pre{
+	background-color: #fff;
+}
+
+.token_items,
+.token_items a{
+	width: 60%;
+	float: left;
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
+.token_items a:hover,
+.token_items a:visited{
+	text-decoration: none;
+}
+
+.key,
+.value{
+	float: left;
+}
+
+.token_items_descriptions,
+p.description {
+	margin: 0;
+	padding: 0;
+	float: left;
+}
 

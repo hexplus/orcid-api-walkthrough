@@ -152,25 +152,28 @@
 
 						<!-- Show access token info-->
 						<div title="Access token info" ng-show="wizardSrvc.current == 5" ng-cloak>
-							<div class="token_items">							
+							<div class="token_items">	
+                            <pre>			
 								<a href="#token" ng-mouseenter="show('token')">
-									<span class="key">access_token</span>: <span class="value">{{token.access_token}}</span>
-								</a>						
+									<span class="key">access_token: </span><span class="value">{{token.access_token}}</span>
+								</a>	
+
 								<a href="#expiration" ng-mouseenter="show('expiration')">
-									<span class="key">expires_in</span>: <span class="value">{{token.expires_in}}</span>
+									<span class="key">expires_in: </span><span class="value">{{token.expires_in}}</span>
 								</a>						
 								<a href="#name" ng-mouseenter="show('name')">
-									<span class="key">name</span>: <span class="value">{{token.name}}</span>
+									<span class="key">name: </span><span class="value">{{token.name}}</span>
 								</a>
 								<a href="#orcid" ng-mouseenter="show('orcid')">
-									<span class="key">orcid</span>: <span class="value">{{token.orcid}}</span>
+									<span class="key">orcid: </span><span class="value">{{token.orcid}}</span>
 								</a>
 								<a href="#scope" ng-mouseenter="show('scope')">
-									<span class="key">scope</span>: <span class="value">{{token.scope}}</span>
+									<span class="key">scope: </span><span class="value">{{token.scope}}</span>
 								</a>
 								<a href="#type" ng-mouseenter="show('type')">
-									<span class="key">token_type</span>: <span class="value">{{token.token_type}}</span>
+									<span class="key">token_type: </span><span class="value">{{token.token_type}}</span>
 								</a>
+                            </pre>
 							</div>
 							<div class="token_items_descriptions">
 								<p id="access_token" class="description" ng-class="(show_access_token == true) ? 'visible' : 'hidden'">access_token description</p>
@@ -187,7 +190,7 @@
 							<h2>ORCID API - Read ORCID record</h2>
 							<p>Read record</p>
 							<div>
-								<button id="submit" class="btn btn-default" ng-click="read()">Read profile</button>
+								<button id="submit" class="btn btn-default" ng-click="readRecord()">Read profile</button>
 							</div>
 						</div>
 					</div>
