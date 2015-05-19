@@ -127,31 +127,8 @@
                                     <label for="client_id">Client ID:</label>
                                     <input type="text" name="client_id" class="form-control" ng-model="form.client_id"/>
                                 </div>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="scope" ng-model="form.scope" value="/authenticate"/> Authenticate Orcid
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="scope" ng-model="form.scope" value="/activities/read-limited"/> Read activities
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="scope" ng-model="form.scope" value="/activities/update"/> Read update 
-                                </label>       
-                            </div>
-							<div class="radio">
-                                <label>
-                                    <input type="radio" name="scope" ng-model="form.scope" value="/orcid-works/create"/> Create works 
-                                </label>       
-                            </div>
- 							
-
-                            <button id="submit" ng-click="getAuthorizationCode()" class="btn btn-default">Get code</button> 
-                            
+                            </div>                            
+                            <button id="submit" ng-click="getAuthorizationCode()" class="btn btn-default">Get code</button>                             
                         </div>
                     </div>
 	
@@ -202,15 +179,20 @@
 								<p id="orcid" class="description" ng-class="(show_orcid == true) ? 'visible' : 'hidden'">orcid description</p>
 								<p id="scope" class="description" ng-class="(show_scope == true) ? 'visible' : 'hidden'">scope description</p>
 								<p id="token_type" class="description" ng-class="(show_token_type == true) ? 'visible' : 'hidden'">token_type description</p>							
+							</div>							
+						</div>
+						
+						<!-- Read record -->
+						<div title="Read record" ng-show="wizardSrvc.current == 6" ng-cloak>
+							<h2>ORCID API - Read ORCID record</h2>
+							<p>Read record</p>
+							<div>
+								<button id="submit" class="btn btn-default" ng-click="read()">Read profile</button>
 							</div>
 						</div>
 					</div>
 					
-                    <!-- Read record -->
-                    <div title="Read record" ng-show="wizardSrvc.current == 6" ng-cloak>
-                        <h2>ORCID API - Read ORCID record</h2>
-                        <p>Read record</p>
-                    </div>
+                    
 
                     <!-- Update record -->
                     <div title="Update record" ng-show="wizardSrvc.current == 7" ng-cloak>

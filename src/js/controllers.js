@@ -63,7 +63,8 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 		console.log(apiUri);
 
 		// Save values in cookies so we can use them later
-		$cookies.put('current', $scope.wizardSrvc.current); //Current Wizard location
+		//Current Wizard location
+		$cookies.put('current', $scope.wizardSrvc.current); 
 		$cookies.put('orcid_oauth2_client_id', $scope.form.client_id);
 		$cookies.put('orcid_oauth2_redirect_uri', 'http://' + location.hostname+ ':8000');
 
@@ -85,6 +86,8 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	$scope.orcid=false;
 	$scope.scope=false;
 	$scope.token_type=false;
+	$scope.access_token=null;
+	$scope.user_orcid=null;
 
 	/* THIS CONTROLLER NEEDS TO BE UPDATED */
 
@@ -131,6 +134,7 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 			.success (function(data){			  		
 				$scope.wizardSrvc.current = 5;
 				$scope.token = data;
+				$scope.access_token = data.access_token;
 			})
 			.error(function(data, status, headers, config){
 		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
@@ -151,7 +155,7 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 				break;
 			case 'expiration':
 				$scope.show_expires_in=true;
-				break;
+				break; 
 			case 'name':
 				$scope.show_name=true;
 				break;
@@ -167,7 +171,64 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 			
 		}
 	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$scope.readRecord = function() {
+			$http({
+		   	url:'http://api.sandbox.orcid.org/v1.2/' + $scope + '/orcid-profile',
+		    method:'post',
+		    headers: {'Content-Type': 'application/x-www-form-urlencoded',
+		              'Accept': 'application/json',
+		    },
+		    data: {
+					client_id: $scope.client_id,
+	                client_secret: $scope.client_secret,
+	                grant_type:'authorization_code',
+	                redirect_uri:'http://localhost:8000',
+				    code:$scope.access_code
+			}})
+			.success (function(data){			  		
+				$scope.wizardSrvc.current = 5;
+				$scope.token = data;
+				$scope.access_token = data.access_token;
+			})
+			.error(function(data, status, headers, config){
+		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
+		});
+	};
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	$scope.getCode();
 }]);
 
