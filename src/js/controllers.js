@@ -61,7 +61,7 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 		apiUri = apiUri.replace('[api_url]', 'sandbox.orcid.org');
 		apiUri = apiUri.replace('[client_id]', $scope.form.client_id);
 		apiUri = apiUri.replace('[redirect_uri]', 'http://' + location.hostname + ':8000');
-		apiUri = apiUri.replace('[scope]', '/activities/read-limited /orcid-profile/read-limited');
+		apiUri = apiUri.replace('[scope]', '/activities/read-limited /activities/update /orcid-profile/read-limited');
 		
 		console.log(apiUri);
 
@@ -77,8 +77,6 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 		}, 125);
 
 	};
-
-
 }]);
 
 wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', '$http', function($scope, $location, $cookies, $http){
@@ -91,17 +89,14 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	$scope.token_type=false;
 	$scope.access_token=null;
 	$scope.user_orcid=null;
-
-	/* THIS CONTROLLER NEEDS TO BE UPDATED */
-
+	$scope.access_code = null;
+	$scope.client_id = null;
+	
 	/* Only for dev environment */
 	if (location.hostname == 'localhost'){
 		$scope.client_secret = '8fa38bea-48e2-4238-9479-e55448ffa225';
 	}	
-	
-	$scope.access_code = null;
-	$scope.client_id = null;
-	
+		
 	$scope.getCode = function() {
 		
 		$scope.access_code = $location.search()['code'];
@@ -118,7 +113,6 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	};
 
 	$scope.exchangeCode = function() {	
-		console.log("real code " + $scope.access_code);			
 		$http({
 		   	url:'http://pub.sandbox.orcid.org/oauth/token',
 		    method:'post',
@@ -144,6 +138,7 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 				$scope.wizardSrvc.current = 5;
 				$scope.token = data;
 				$scope.access_token = data.access_token;
+				$scope.user_orcid = data.orcid;
 			})
 			.error(function(data, status, headers, config){
 		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
@@ -198,22 +193,14 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	
 	$scope.readRecord = function() {
 			$http({
-		   	url:'http://api.sandbox.orcid.org/v1.2/' + $scope + '/orcid-profile',
-		    method:'post',
+		   	url:'http://api.sandbox.orcid.org/v1.2/' + $scope.user_orcid + '/orcid-profile',
+		    method:'get',
 		    headers: {'Content-Type': 'application/x-www-form-urlencoded',
 		              'Accept': 'application/json',
-		    },
-		    data: {
-					client_id: $scope.client_id,
-	                client_secret: $scope.client_secret,
-	                grant_type:'authorization_code',
-	                redirect_uri:'http://localhost:8000',
-				    code:$scope.access_code
-			}})
+		    }})
 			.success (function(data){			  		
-				$scope.wizardSrvc.current = 5;
-				$scope.token = data;
-				$scope.access_token = data.access_token;
+				console.log("Returned data");
+				console.log(data);
 			})
 			.error(function(data, status, headers, config){
 		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
