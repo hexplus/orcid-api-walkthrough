@@ -194,6 +194,61 @@
 							<div>
 								<button id="submit" class="btn btn-default" ng-click="readRecord()">Read profile</button>
 							</div>
+							<div id="profile" ng-class="(show_xml == true) ? 'visible' : 'hidden'">
+								<textarea rows="20" cols="100" style="border:none;">								
+<orcid-message>
+    <message-version>1.2</message-version>
+    <orcid-profile type="admin">
+        <orcid-identifier>
+            <uri>http://sandbox.orcid.org/0000-0001-6442-2876</uri>
+            <path>0000-0001-6442-2876</path>
+            <host>sandbox.orcid.org</host>
+        </orcid-identifier>
+        <orcid-preferences>
+            <locale>es</locale>
+        </orcid-preferences>
+        <orcid-history>
+            <creation-method>Direct</creation-method>
+            <submission-date>2015-05-15T09:46:30.172-06:00</submission-date>
+            <last-modified-date>2015-05-19T06:00:08.759-06:00</last-modified-date>
+            <claimed>true</claimed>
+            <verified-email>false</verified-email>
+            <verified-primary-email>false</verified-primary-email>
+        </orcid-history>
+        <orcid-bio>
+            <personal-details>
+                <given-names>One</given-names>
+                <other-names visibility="public"/>
+            </personal-details>
+            <biography visibility="public"/>
+            <researcher-urls visibility="public"/>
+            <external-identifiers visibility="public"/>
+        </orcid-bio>
+        <orcid-activities>
+            <orcid-works>
+                <orcid-work put-code="1001" visibility="public">
+                    <work-title>
+                        <title>Work # 1 - Test</title>
+                    </work-title>
+                    <work-type>journal-article</work-type>
+                    <source>
+                        <source-orcid>
+                            <uri>http://sandbox.orcid.org/0000-0001-6442-2876</uri>
+                            <path>0000-0001-6442-2876</path>
+                            <host>localhost</host>
+                        </source-orcid>
+                        <source-name>One</source-name>
+                        <source-date>2015-05-15T09:47:09.210-06:00</source-date>
+                    </source>
+                    <created-date>2015-05-15T09:47:09.210-06:00</created-date>
+                    <last-modified-date>2015-05-19T05:09:40.879-06:00</last-modified-date>
+                </orcid-work>
+            </orcid-works>
+        </orcid-activities>
+    </orcid-profile>
+</orcid-message>
+								</textarea>
+							</div>
 						</div>
 					</div>
 					

@@ -91,6 +91,7 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	$scope.user_orcid=null;
 	$scope.access_code = null;
 	$scope.client_id = null;
+	$scope.show_xml=false;
 	
 	/* Only for dev environment */
 	if (location.hostname == 'localhost'){
@@ -117,7 +118,7 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 		   	url:'http://pub.sandbox.orcid.org/oauth/token',
 		    method:'post',
 		    headers: {'Content-Type': 'application/x-www-form-urlencoded',
-		              'Accept': 'application/json',
+		              'Accept': 'application/json'
 		    },
 		    transformRequest: function(obj) {
 		       var str = [];
@@ -192,19 +193,7 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	
 	
 	$scope.readRecord = function() {
-			$http({
-		   	url:'http://api.sandbox.orcid.org/v1.2/' + $scope.user_orcid + '/orcid-profile',
-		    method:'get',
-		    headers: {'Content-Type': 'application/x-www-form-urlencoded',
-		              'Accept': 'application/json',
-		    }})
-			.success (function(data){			  		
-				console.log("Returned data");
-				console.log(data);
-			})
-			.error(function(data, status, headers, config){
-		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
-		});
+		$scope.show_xml=true;				
 	};
 
 	
