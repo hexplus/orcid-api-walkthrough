@@ -75,16 +75,15 @@
                     <!-- Using the API -->
                     <div title="Using the API" ng-show="wizardSrvc.current == 2" ng-cloak>
                         <h2>Using the API</h2>   
-                        <ul>
-                            <li>Request permission from the user</li>
+                        <ol>
                             <li>Get an authorization code</li>
                             <li>Exchange the authorization code for an access token</li>
                             <li>Use the access token in API calls that read from or write to the user's record</li>
-                        </ul>
+                        </ol>
                     </div>
 
                     <!-- Get access token -->
-                    <div title="Get access token" ng-show="wizardSrvc.current == 3" ng-cloak>
+                    <div title="Get authorization code" ng-show="wizardSrvc.current == 3" ng-cloak>
                         <div ng-controller="authorizationCodeController">
                             <h2>Get Authorization Code</h2>
                             <p>Here, we ask the user for permissions over his ORCID record</p>
@@ -102,7 +101,7 @@
 					<div ng-controller="tokenController">
 						<!-- Get token -->					
 						<div title="Get token" ng-show="wizardSrvc.current == 4" ng-cloak>                        
-							<h2>Exchange Authorization Code</h2>
+							<h2>Get Access Token</h2>
 							<div id="token" ng-show="access_code != null" ng-cloak>
 								<p>This is your access code {{access_code}}</p>
 								<div class="form-inline">

@@ -3,9 +3,9 @@ wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location',
 		{'title' : 'Introduction'},
 		{'title' : 'Accessing the API'},
 		{'title' : 'Using the API'},
-		{'title' : 'Get access token'},
-		{'title' : 'Get token'},
-		{'title' : 'Show token'},
+		{'title' : 'Get Authorization Code'},
+		{'title' : 'Exhange Authorization Code'},
+		{'title' : 'Get Access Token'},
 		{'title' : 'Read record'},
 		{'title' : 'Update record'}
 	];
