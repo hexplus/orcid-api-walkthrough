@@ -1,6 +1,7 @@
-var wizardNgModule = angular.module('wizardApp',['ngCookies'])
-.config(['$locationProvider', function($locationProvider) {
+var wizardNgModule = angular.module('wizardApp',['ngCookies','ngResource'])
+.config(['$locationProvider', '$resourceProvider', function($locationProvider, $resourceProvider) {
         $locationProvider.html5Mode(true);
+		$resourceProvider.defaults.stripTrailingSlashes = true;
     }]);
 
 wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location', function($scope, wizardSrvc, $location){
@@ -104,8 +105,6 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	$scope.getCode = function() {
 		$scope.access_code = $location.search()['code'];
 		$scope.client_id = $cookies.get('orcid_oauth2_client_id');																			
-		console.log($scope.access_code);
-		console.log($scope.client_id);
 		// If the code is not specified, return the view
 		// to the root view
 		if ($scope.access_code === undefined || $scope.access_code === null) {
