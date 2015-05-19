@@ -61,7 +61,7 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 		apiUri = apiUri.replace('[api_url]', 'sandbox.orcid.org');
 		apiUri = apiUri.replace('[client_id]', $scope.form.client_id);
 		apiUri = apiUri.replace('[redirect_uri]', 'http://' + location.hostname + ':8000');
-		apiUri = apiUri.replace('[scope]', $scope.form.scope);
+		apiUri = apiUri.replace('[scope]', '/activities/read-limited /orcid-profile/read-limited');
 		
 		console.log(apiUri);
 
