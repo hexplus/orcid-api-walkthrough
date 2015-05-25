@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hexplus/orcid-hackathon-2015.git"
+    "url": "git+https://github.com/hexplus/orcid-api-walkthrough.git"
   },
   "keywords": [
     "orcid",
@@ -34,7 +34,7 @@
   "author": "Fran Ramirez, Angel Montenegro, Liz Krznarich",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hexplus/orcid-hackathon-2015/issues"
+    "url": "https://github.com/hexplus/orcid-api-walkthrough/issues"
   },
-  "homepage": "https://github.com/hexplus/orcid-hackathon-2015#readme"
+  "homepage": "https://github.com/hexplus/orcid-api-walkthrough#readme"
 }
