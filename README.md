@@ -4,25 +4,31 @@ An step by step live demo to explain how the Oauth2 dance works in the ORCID API
 
 [Install it!](https://nodejs.org/)
 
-### Install dependencies
+### Install Gulp
+
+```
+sudo npm install --global gulp 
+```
 
 ```
 npm install gulp --save-dev
 ```
 
+### Install dependencies
+
 ```
-npm install gulp-ruby-sass gulp-autoprefixer gulp-minify-css gulp-uglify gulp-rename gulp-concat gulp-notify gulp-cache gulp-livereload gulp-plumber --save-dev
+npm install 
 ```
 
 ### Run web server
 
 ```
 python3 -m http.server 8000
-
+```
 or
 
+```
 python -m SimpleHTTPServer 8000
-
 ```
 
 ### Run gulp
