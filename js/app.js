@@ -8,7 +8,7 @@ wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location',
 	$scope.steps = [
 		{'title' : 'Introduction'},
 		{'title' : 'Accessing the API'},
-		{'title' : 'Technologies'},
+		{'title' : 'Using the API'},
 		{'title' : 'Get access token'},
 		{'title' : 'Get token'},
 		{'title' : 'Show token'},
@@ -18,9 +18,12 @@ wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location',
 	
 	$scope.init = function() {
 		var code = $location.search()['code'];
+
 		if (code === undefined || code === null) {
 			console.log('Nothing here');
 		} else {
+			//strip extra characters from code
+			code = code.substr(0,6);
 			$scope.wizardSrvc.current = 4;
 		}
 	}
@@ -64,12 +67,13 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 		apiUri = apiUri.replace('[api_url]', 'sandbox.orcid.org');
 		apiUri = apiUri.replace('[client_id]', $scope.form.client_id);
 		apiUri = apiUri.replace('[redirect_uri]', 'http://' + location.hostname + ':8000');
-		apiUri = apiUri.replace('[scope]', $scope.form.scope);
+		apiUri = apiUri.replace('[scope]', '/activities/read-limited /activities/update /orcid-profile/read-limited');
 		
 		console.log(apiUri);
 
 		// Save values in cookies so we can use them later
-		$cookies.put('current', $scope.wizardSrvc.current); //Current Wizard location
+		//Current Wizard location
+		$cookies.put('current', $scope.wizardSrvc.current); 
 		$cookies.put('orcid_oauth2_client_id', $scope.form.client_id);
 		$cookies.put('orcid_oauth2_redirect_uri', 'http://' + location.hostname+ ':8000');
 
@@ -79,8 +83,6 @@ wizardNgModule.controller('authorizationCodeController', ['$scope','$cookies', '
 		}, 125);
 
 	};
-
-
 }]);
 
 wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', '$http', function($scope, $location, $cookies, $http){
@@ -91,33 +93,38 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 	$scope.orcid=false;
 	$scope.scope=false;
 	$scope.token_type=false;
-
-	/* THIS CONTROLLER NEEDS TO BE UPDATED */
-
+	$scope.access_token=null;
+	$scope.user_orcid=null;
+	$scope.access_code = null;
+	$scope.client_id = null;
+	$scope.show_xml=false;
+	
 	/* Only for dev environment */
 	if (location.hostname == 'localhost'){
 		$scope.client_secret = '8fa38bea-48e2-4238-9479-e55448ffa225';
 	}	
-	
-	$scope.access_code = null;
-	$scope.client_id = null;
-	
+		
 	$scope.getCode = function() {
+		
 		$scope.access_code = $location.search()['code'];
 		$scope.client_id = $cookies.get('orcid_oauth2_client_id');																			
 		// If the code is not specified, return the view
 		// to the root view
 		if ($scope.access_code === undefined || $scope.access_code === null) {
 			$location.path("/");
+		} else{
+			//strip extra characters from code
+			var rawCode = $location.search()['code'];
+			$scope.access_code = rawCode.substr(0,6);
 		}
 	};
 
-	$scope.exchangeCode = function() {				
+	$scope.exchangeCode = function() {	
 		$http({
 		   	url:'http://pub.sandbox.orcid.org/oauth/token',
 		    method:'post',
 		    headers: {'Content-Type': 'application/x-www-form-urlencoded',
-		              'Accept': 'application/json',
+		              'Accept': 'application/json'
 		    },
 		    transformRequest: function(obj) {
 		       var str = [];
@@ -137,6 +144,8 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 			.success (function(data){			  		
 				$scope.wizardSrvc.current = 5;
 				$scope.token = data;
+				$scope.access_token = data.access_token;
+				$scope.user_orcid = data.orcid;
 			})
 			.error(function(data, status, headers, config){
 		        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
@@ -157,7 +166,7 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 				break;
 			case 'expiration':
 				$scope.show_expires_in=true;
-				break;
+				break; 
 			case 'name':
 				$scope.show_name=true;
 				break;
@@ -173,7 +182,44 @@ wizardNgModule.controller('tokenController', ['$scope','$location', '$cookies', 
 			
 		}
 	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$scope.readRecord = function() {
+		$scope.show_xml=true;				
+	};
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	$scope.getCode();
 }]);
 

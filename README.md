@@ -10,10 +10,6 @@ An step by step live demo to explain how the Oauth2 dance works in the ORCID API
 sudo npm install --global gulp 
 ```
 
-```
-npm install gulp --save-dev
-```
-
 ### Install dependencies
 
 ```
