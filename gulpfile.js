@@ -33,6 +33,7 @@ gulp.task('styles', function () {
     return (sass('./src/scss'))
         .on('error', function (err) { console.log(err.message); })
         .pipe(plumber())
+        .pipe(gulp.dest('./public/css'))
         .pipe(rename({ suffix: '.min' }))
         .pipe(minifycss())
         .pipe(gulp.dest('./public/css'))
