@@ -33,10 +33,10 @@ gulp.task('styles', function () {
     return (sass('./src/scss'))
         .on('error', function (err) { console.log(err.message); })
         .pipe(plumber())
-        .pipe(gulp.dest('./public/css'))
+        .pipe(gulp.dest('./public/gulp_derived/css'))
         .pipe(rename({ suffix: '.min' }))
         .pipe(minifycss())
-        .pipe(gulp.dest('./public/css'))
+        .pipe(gulp.dest('./public/gulp_derived/css'))
         .pipe(notify({ message: 'Styles task complete' }));
 });
 
@@ -46,10 +46,10 @@ gulp.task('scripts', function() {
   return gulp.src('./src/js/*.js')
     .pipe(plumber())
     .pipe(concat('app.js'))
-    .pipe(gulp.dest('./public/js'))
+    .pipe(gulp.dest('./public/gulp_derived/js'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
-    .pipe(gulp.dest('./public/js'))
+    .pipe(gulp.dest('./public/gulp_derived/js'))
     .pipe(notify({ message: 'Custom Scripts task complete' }));
 });
 
@@ -59,6 +59,7 @@ gulp.task('watch', function() {
   gulp.watch('./src/scss/*.scss', ['styles']);
   gulp.watch('./src/js/*.js', ['scripts']);
   gulp.watch('./public/**', notifyLiveReload);
+  gulp.watch('./views/**', notifyLiveReload);
 });
 
 
@@ -88,11 +89,3 @@ gulp.task('express', function() {
 gulp.task('default', ['express','livereload','watch'], function() {
     gulp.start('styles','scripts');
 });
-
-
-
-
-
-
-
-
