@@ -1,8 +1,11 @@
 An step by step live demo to explain how the Oauth2 dance works in the ORCID API and how to use the access tokens to edit an ORCID record.
 
-#### Install NodeJS
+#### Install NodeJS or Upgrade 
 
 [Install it!](https://nodejs.org/)
+or 
+[Upgrade it!](http://davidwalsh.name/upgrade-nodejs)
+if the version if less then 0.12.0
 
 ### Install Gulp
 

@@ -5,10 +5,12 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
+    nodemon = require('gulp-nodemon'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
     plumber = require('gulp-plumber');
+    
     
 // run livereload
 gulp.task('livereload', function() {
@@ -64,26 +66,15 @@ gulp.task('watch', function() {
 
 
 // run express
-gulp.task('express', function() {
-  var express = require('express');
-  var app = express();
-  app.set('view engine', 'ejs');
-  app.use(require('connect-livereload')({port: 35729}));
-  app.use(express.static(__dirname + '/public'));
-  
-  // index page 
-  console.log('HERE');
-  console.log(process.env.MINIMIZE)
-  app.get('/', function(req, res) {
-      res.render('pages/index', {
-           min: process.env.MINIMIZE == 'true' ? '.min':''
-      });
-  });
-  
-  app.listen(8000);
-  
+gulp.task('express', function () {
+  nodemon({ script: 'server.js'
+          , ext: 'html js'
+          , ignore: ['ignored.js']
+          , tasks: ['lint'] })
+    .on('restart', function () {
+      console.log('restarted!')
+    })
 });
-
 
 // Default task
 gulp.task('default', ['express','livereload','watch'], function() {
