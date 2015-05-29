@@ -17,6 +17,7 @@ gulp.task('livereload', function() {
     tinylr.listen(35729);
 });
 
+
 function notifyLiveReload(event) {
     var fileName = require('path').relative(__dirname, event.path);
 
