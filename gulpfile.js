@@ -47,7 +47,7 @@ gulp.task('styles', function () {
 gulp.task('scripts', function() {
   return gulp.src('./src/js/*.js')
     .pipe(plumber())
-    .pipe(concat('app.js'))
+    .pipe(concat('client.js'))
     .pipe(gulp.dest('./public/gulp_derived/js'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
