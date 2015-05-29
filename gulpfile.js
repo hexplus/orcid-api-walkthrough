@@ -10,6 +10,22 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     plumber = require('gulp-plumber');
     
+// run livereload
+gulp.task('livereload', function() {
+    tinylr = require('tiny-lr')();
+    tinylr.listen(35729);
+});
+
+function notifyLiveReload(event) {
+    var fileName = require('path').relative(__dirname, event.path);
+
+    tinylr.changed({
+        body: {
+            files: [fileName]
+        }
+    });
+}
+
 
 gulp.task('styles', function () {
     return (sass('./src/scss'))
@@ -38,10 +54,25 @@ gulp.task('scripts', function() {
 gulp.task('watch', function() {
   gulp.watch('./src/scss/*.scss', ['styles']);
   gulp.watch('./src/js/*.js', ['scripts']);
+  gulp.watch('./js/*', notifyLiveReload);
+  gulp.watch('./css/*', notifyLiveReload);
+  gulp.watch('./img/*', notifyLiveReload);
+  gulp.watch('./index.html', notifyLiveReload);
 });
 
+// run express
+gulp.task('express', function() {
+  var express = require('express');
+  var app = express();
+  app.use(require('connect-livereload')({port: 35729}));
+  app.use(express.static(__dirname));
+  app.listen(8000);
+});
+
+
+
 // Default task
-gulp.task('default', ['watch'], function() {
+gulp.task('default', ['express','livereload','watch'], function() {
     gulp.start('styles','scripts');
 });
 

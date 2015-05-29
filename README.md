@@ -16,18 +16,7 @@ sudo npm install --global gulp
 npm install 
 ```
 
-### Run web server
-
-```
-python3 -m http.server 8000
-```
-or
-
-```
-python -m SimpleHTTPServer 8000
-```
-
-### Run gulp
+### Run gulp, includes express web server
 
 ```
 gulp
