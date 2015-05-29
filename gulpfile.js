@@ -9,7 +9,6 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
     plumber = require('gulp-plumber');
-
     
 // run livereload
 gulp.task('livereload', function() {
@@ -59,8 +58,7 @@ gulp.task('scripts', function() {
 gulp.task('watch', function() {
   gulp.watch('./src/scss/*.scss', ['styles']);
   gulp.watch('./src/js/*.js', ['scripts']);
-  gulp.watch('./js/*', notifyLiveReload);
-  gulp.watch('./public/*', notifyLiveReload);
+  gulp.watch('./public/**', notifyLiveReload);
 });
 
 
@@ -68,9 +66,17 @@ gulp.task('watch', function() {
 gulp.task('express', function() {
   var express = require('express');
   var app = express();
+  app.set('view engine', 'ejs');
   app.use(require('connect-livereload')({port: 35729}));
   app.use(express.static(__dirname + '/public'));
+  
+  // index page 
+  app.get('/', function(req, res) {
+      res.render('pages/index');
+  });
+  
   app.listen(8000);
+  
 });
 
 
