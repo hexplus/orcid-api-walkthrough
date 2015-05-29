@@ -4,6 +4,7 @@ var wizardNgModule = angular.module('wizardApp',['ngCookies','ngResource'])
 		$resourceProvider.defaults.stripTrailingSlashes = true;
     }]);
 
+alert('here');
 wizardNgModule.controller('stepsController', ['$scope','wizardSrvc','$location', function($scope, wizardSrvc, $location){
 	$scope.steps = [
 		{'title' : 'Introduction'},
