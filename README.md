@@ -22,4 +22,12 @@ npm install
 gulp
 ```
 
-Source JavaScript and SCSS files are under /src folder, do not modify files that are in the root (/CSS and /JS)
+Source JavaScript and SCSS files are under /src folder, do not modify files that are in (/public/css and /public/js)
+
+### Production minimize mode
+The default view doesn't reference minimized js and css to make development easier. To enable css and javascript minimization 
+for production set the `MINIMIZE` environment variable to `true`;
+
+```
+export MINIMIZE=true
+```

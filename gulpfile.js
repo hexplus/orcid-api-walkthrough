@@ -71,8 +71,12 @@ gulp.task('express', function() {
   app.use(express.static(__dirname + '/public'));
   
   // index page 
+  console.log('HERE');
+  console.log(process.env.MINIMIZE)
   app.get('/', function(req, res) {
-      res.render('pages/index');
+      res.render('pages/index', {
+           min: process.env.MINIMIZE == 'true' ? '.min':''
+      });
   });
   
   app.listen(8000);
