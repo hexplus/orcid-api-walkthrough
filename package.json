@@ -18,7 +18,10 @@
     "gulp-jshint": "^1.10.0"
   },
   "devDependencies": {
-    "gulp": "^3.8.11"
+    "connect-livereload": "^0.5.3",
+    "express": "^4.12.4",
+    "gulp": "^3.8.11",
+    "tiny-lr": "^0.1.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
