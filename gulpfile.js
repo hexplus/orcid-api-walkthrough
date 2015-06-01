@@ -27,7 +27,7 @@ function notifyLiveReload(event) {
             files: [fileName]
         }
     });
-}
+};
 
 
 // Styles gulp task
