@@ -33,6 +33,10 @@
     "type": "git",
     "url": "git+https://github.com/hexplus/orcid-api-walkthrough.git"
   },
+  "engines": {
+    "node": ">= 0.12.0",
+    "npm": ">= 2.0.0"
+  },
   "keywords": [
     "orcid",
     "hackaton",
@@ -44,5 +48,6 @@
   "bugs": {
     "url": "https://github.com/hexplus/orcid-api-walkthrough/issues"
   },
-  "homepage": "https://github.com/hexplus/orcid-api-walkthrough#readme"
+  "homepage": "https://github.com/hexplus/orcid-api-walkthrough#readme",
+  "main": "server.js"
 }
