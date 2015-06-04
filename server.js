@@ -91,15 +91,15 @@ app.get('/get-record', function(req, res){
 	
 	var record_data = '';
 	
-	var req_get_record = https.request(get_record_msg, function(res) {
+	var req_get_record = https.request(get_record_msg, function(resp) {
 		console.log("statusCode: ", res.statusCode);		
-		res.on('data', function(d) {
+		resp.on('data', function(d) {
 			record_data += d;			
 		});
-		res.on('error', function(e){
+		resp.on('error', function(e){
 			console.error(e);
 		});
-		res.on('end', function(res){
+		resp.on('end', function(){
 			res.render('pages/record', {
 				'record': record_data
 			})
