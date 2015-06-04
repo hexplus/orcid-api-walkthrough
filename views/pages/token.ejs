@@ -1,4 +1,47 @@
-Token:<br />
-<%= token %><br />
-<br />
+<html>
+<head>
+	<title>Access token info</title>
+</head>
+<body>
+<div>
+	<div class="token_items">	
+	<pre>			
+		<a href="#access_token">
+			<span class="key">access_token: </span><span class="value"><%= access_token %></span>
+		</a>	
+		<a href="#orcid">
+			<span class="key">orcid: </span><span class="value"><%= orcid %></span>
+		</a>
+		<a href="#name">
+			<span class="key">name: </span><span class="value"><%= name %></span>
+		</a>		
+		<a href="#token_type">
+			<span class="key">token_type: </span><span class="value"><%= token_type %></span>
+		</a>						
+		<a href="#scope">
+			<span class="key">scope: </span><span class="value"><%= scope %></span>
+		</a>
+		<a href="#expires_in">
+			<span class="key">expires_in: </span><span class="value"><%=  expires_in %></span>
+		</a>
+		<a href="#expires_at">
+			<span class="key">expires_at: </span><span class="value"><%=  expires_at %></span>
+		</a>		
+	</pre>
+	</div>
+
+	<div class="token_items_descriptions">
+		<p id="access_token" class="description">access_token description</p>
+		<p id="orcid" class="description">orcid description</p>
+		<p id="name" class="description">name description</p>
+		<p id="token_type" class="description">token_type description</p>							
+		<p id="scope" class="description">scope description</p>
+		<p id="expires_in" class="description">expires_in description</p>
+		<p id="expires_at" class="description">expires_at description</p>						
+	</div>		
+
+</div>
+
 <a href="/get-record">Want to get a record?</a>
+</body>
+</html>

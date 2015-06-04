@@ -78,7 +78,13 @@ app.get('/show-token', function(req, res) {
 	console.log('Token is: ' + JSON.stringify(my_token));	
 	//res.redirect('http://localhost:8000/get-record');
 	res.render('pages/token', {
-        'token': my_token.token.access_token
+        'access_token': my_token.token.access_token,
+		'token_type': my_token.token.token_type,
+		'expires_in': my_token.token.expires_in,
+		'scope': my_token.token.scope,
+		'orcid': my_token.token.orcid,
+		'name': my_token.token.name,
+		'expires_at': my_token.token.expires_at
       })
 });
 
@@ -101,7 +107,8 @@ app.get('/get-record', function(req, res){
 		});
 		resp.on('end', function(){
 			res.render('pages/record', {
-				'record': record_data
+				'record': record_data,
+				'orcid': my_token.token.orcid
 			})
 		}); 
 	});
