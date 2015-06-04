@@ -1,7 +1,53 @@
 <!doctype html>
 <html>
 <head>
+	<title>ORCID Walkthrough - Token info</title>
+	 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css">
+	<link rel="stylesheet" href="gulp_derived/css/style.css"> 
 </head>
 <body>
-</body>
+	<div id="wizard">
+		<div class="steps-pane-container">
+			<div class="logo">
+				<img src="img/orcid-logo.png" alt="">
+			</div>
+			<ul>
+				<li class="step">Introduction</li>
+				<li class="step">Accessing the API</li>
+				<li class="step">Using the API</li>
+				<li class="step current-step">Get authorization code</li>
+				<li class="step">Get token</li>
+				<li class="step">Show token</li>
+				<li class="step">Read record</li>
+				<li class="step">Update record</li>				
+			</ul>
+		</div>
+		<div class="contents-pane-container">
+			<div class="contents-pane">	
+				<h2>ORCID API - Adding a work</h2>
+					<p>Here, we create a new work and add it to the record of user <%= orcid %></p>
+					<form class="form-group" action="/add-work-action" method="post">
+						<div class="form-inline">							
+							<label for="title">Title:</label>
+							<input type="text" name="title" class="form-control"/>
+							<br />
+							<label for="type">Type:</label>
+							<select id="type" name="type">
+							   <option value="BOOK" selected="selected" label="Book">Book</option>
+							   <option value="BOOK_CHAPTER" label="Book chapter">Book chapter</option>
+							   <option value="BOOK_REVIEW" label="Book review">Book review</option>
+							   <option value="DICTIONARY_ENTRY" label="Dictionary entry">Dictionary entry</option>
+							   <option value="DISSERTATION" label="Dissertation">Dissertation</option>
+							</select>
+						</div>                            
+						<input id="submit" type="submit" class="btn btn-default" value="Get authorization code"/>
+					</form>			
+			</div>						
+		<div>			
+		<div class="wizard-btn-container">
+			<a class="wizard-nav-btn wizard-previous-button disabled-button" href="#">Back</a>
+            <a class="wizard-nav-btn wizard-next-button disabled-button" href="#">Next</a>
+		</div>		
+	</div>
+</head>
 </html>

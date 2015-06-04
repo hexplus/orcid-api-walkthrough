@@ -24,14 +24,25 @@ var oauth2 = require('simple-oauth2')(credentials);
 //Local variables  
 var my_token = '';
 var get_record_msg = {
-			host : 'pub.sandbox.orcid.org', 
-			port : 443,
-			path : '/v1.2/[orcid]/orcid-profile', 
-			method : 'GET', // do GET
-			headers: {				
-				'Accept': 'application/vnd.orcid+xml'
-			} // We will need to add the authorization header here, like this: 'Authorization': 'Bearer [bearer]',
-		};  
+	host : 'api.sandbox.orcid.org', 
+	port : 443,
+	path : '/v1.2/[orcid]/orcid-profile', 
+	method : 'GET',
+	headers: {				
+		'Accept': 'application/vnd.orcid+xml'
+	} // We will need to add the authorization header here, like this: 'Authorization': 'Bearer [bearer]',
+};  
+
+var post_work_msg = {
+	host : 'api.sandbox.orcid.org', 
+	port : 443,
+	path : '/v2.0_rc1/[orcid]/work', 
+	method : 'POST',
+	headers: {				
+		'Accept': 'application/json',
+		'Content-Type': 'application/json'
+	} // We will need to add the authorization header here, like this: 'Authorization': 'Bearer [bearer]',
+};		
   
 // index page 
 app.get('/', function(req, res) {
@@ -57,22 +68,18 @@ app.get('/get-authorization-code', function(req, res) {
 });
 
 app.post('/get-authorization-code-action', function(req, res) {
-	console.log('Client ID!:');
-	console.log(req.body.client_id);
 	credentials.clientID = req.body.client_id;
 	credentials.clientSecret = req.body.secret;
 	
 	var authorization_uri = oauth2.authCode.authorizeURL({
 		redirect_uri: 'http://localhost:8000/callback',
-		scope: '/activities/update /authenticate',
+		scope: '/activities/update /activities/read-limited /orcid-profile/read-limited',
 		state: 'nope'
 	});  
 	
 	res.redirect(authorization_uri);
 });  
 
-
-//curl -H 'Accept: application/orcid+xml' 'http://pub.sandbox.orcid.org/v2.0_rc1/0000-0002-3373-1120/activities'
 // Get the access token object (the authorization code is given from the previous step).
 app.get('/callback', function(req, res) {
   var token;
@@ -82,17 +89,11 @@ app.get('/callback', function(req, res) {
     redirect_uri: 'http://localhost:8000/callback'
   }, function(error, result){
     my_token = oauth2.accessToken.create(result);
-    // TODO: save token here, to be read by show-work later
-	console.log('my_token saved');	
-	res.redirect('http://localhost:8000/show-token');		
+    res.redirect('http://localhost:8000/show-token');		
   });
 });
 
-
-// TODO: make show-work page
 app.get('/show-token', function(req, res) {
-	console.log('Token is: ' + JSON.stringify(my_token));	
-	//res.redirect('http://localhost:8000/get-record');
 	res.render('pages/token', {
         'access_token': my_token.token.access_token,
 		'token_type': my_token.token.token_type,
@@ -114,7 +115,7 @@ app.get('/get-record', function(req, res){
 	var record_data = '';
 	
 	var req_get_record = https.request(get_record_msg, function(resp) {
-		console.log("statusCode: ", res.statusCode);		
+		console.log('statusCode: ', res.statusCode);		
 		resp.on('data', function(d) {
 			record_data += d;			
 		});
@@ -133,7 +134,45 @@ app.get('/get-record', function(req, res){
 });
 
 app.get('/add-work', function(req, res){
+	res.render('pages/add_work', {
+        'orcid': my_token.token.orcid		
+      })
+});
+
+app.post('/add-work-action', function(req, res){
+	var new_work = {
+		title : { title : req.body.title},
+		type : req.body.type
+	}
+		
+	var work_string = JSON.stringify(new_work);
+	var content_length = work_string.length
 	
+	//Add bearer header
+	post_work_msg.headers['Authorization'] = 'Bearer ' + my_token.token.access_token;
+	//Add content length
+	post_work_msg.headers['Content-Length'] = content_length;
+	//Replace the orcid placeholder in the path
+	post_work_msg.path = post_work_msg.path.replace('[orcid]', my_token.token.orcid);	
+	console.log('Request will be:' + JSON.stringify(post_work_msg))
+	
+	var record_data = '';
+	
+	var req_post_work = https.request(post_work_msg, function(resp) {
+		console.log('statusCode: ', res.statusCode);		
+		resp.on('data', function(d) {
+			record_data += d;			
+		});
+		resp.on('error', function(e){
+			console.error(e);
+		});
+		resp.on('end', function(){
+			console.log('Done!');
+			console.log(record_data);
+		}); 
+	});
+	req_post_work.write(work_string);
+	req_post_work.end();				
 });
 
 app.listen(port, function (){
