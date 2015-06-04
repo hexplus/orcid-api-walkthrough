@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<title>ORCID Walkthrough - Introduction</title>
+	 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css">
+	<link rel="stylesheet" href="gulp_derived/css/style.css"> 
+</head>
+<body>
+	<div id="wizard">
+		<div class="steps-pane-container">
+			<div class="logo">
+				<img src="img/orcid-logo.png" alt="">
+			</div>
+			<ul>
+				<li class="step">Introduction</li>
+				<li class="step">Accessing the API</li>
+				<li class="step">Using the API</li>
+				<li class="step current-step">Get authorization code</li>
+				<li class="step">Get token</li>
+				<li class="step">Show token</li>
+				<li class="step">Read record</li>
+				<li class="step">Update record</li>				
+			</ul>
+		</div>
+		<div class="contents-pane-container">
+			<div class="contents-pane">
+				<!-- Get access code -->
+				<div title="Get access code" ng-show="wizardSrvc.current == 3" ng-cloak>
+					<div>
+						<h2>ORCID API - Getting the authorization code</h2>
+						<p>Here, we ask the user for permissions over his ORCID record</p>
+						<form class="form-group" action="get-code" method="get">
+							<div class="form-inline">							
+								<label for="client_id">Client ID:</label>
+								<input type="text" name="client_id" class="form-control"/>
+							</div>                            
+							<input id="submit" type="submit" class="btn btn-default">Get authorization code</input>
+						</form>						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="wizard-btn-container">
+			<a class="wizard-nav-btn wizard-previous-button" href="/using-api">Back</a>
+            <a class="wizard-nav-btn wizard-next-button disabled-button" href="#">Next</a>
+		</div>
+	</div>
+</body>
+</html>

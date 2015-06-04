@@ -56,6 +56,12 @@ app.get('/introduction', function(req, res) {
 app.get('/accessing-api', function(req, res) {
 	res.render('pages/accessing_api');
 });  
+
+app.get('/using-api', function(req, res) {
+	res.render('pages/using_api');
+});    
+  
+  
   
 app.get('/get-auth', function(req, res) {
 	res.redirect(authorization_uri);
