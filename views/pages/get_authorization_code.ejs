@@ -25,18 +25,19 @@
 		<div class="contents-pane-container">
 			<div class="contents-pane">
 				<!-- Get access code -->
-				<div title="Get access code" ng-show="wizardSrvc.current == 3" ng-cloak>
-					<div>
-						<h2>ORCID API - Getting the authorization code</h2>
-						<p>Here, we ask the user for permissions over his ORCID record</p>
-						<form class="form-group" action="get-code" method="get">
-							<div class="form-inline">							
-								<label for="client_id">Client ID:</label>
-								<input type="text" name="client_id" class="form-control"/>
-							</div>                            
-							<input id="submit" type="submit" class="btn btn-default">Get authorization code</input>
-						</form>						
-					</div>
+				<div title="Get access code">
+					<h2>ORCID API - Getting the authorization code</h2>
+					<p>Here, we ask the user for permissions over his ORCID record</p>
+					<form class="form-group" action="/get-authorization-code-action" method="post">
+						<div class="form-inline">							
+							<label for="client_id">Client ID:</label>
+							<input type="text" name="client_id" class="form-control" value="APP-LYNIW43A4OO9DH72" />
+							<br />
+							<label for="client_id">Secret:</label>
+							<input type="text" name="secret" class="form-control" value="43091822-851a-4b1e-8ee6-20d55ad06a40" />
+						</div>                            
+						<input id="submit" type="submit" class="btn btn-default" value="Get authorization code"/>
+					</form>
 				</div>
 			</div>
 		</div>

@@ -1,41 +1,25 @@
 var express = require('express');
 var https = require('https');
+var bodyParser = require('body-parser')
 
 var port = process.env.EXPRESSPORT != undefined ? process.env.EXPRESSPORT: '8000'
-
-
-// Set the client credentials and the OAuth2 server
-var credentials = {
-  clientID: 'APP-LYNIW43A4OO9DH72',
-  clientSecret: '43091822-851a-4b1e-8ee6-20d55ad06a40',
-  site: 'https://sandbox.orcid.org',
-  tokenPath:'https://api.sandbox.orcid.org/oauth/token'
-};
-
-
-// Initialize the OAuth2 Library
-var oauth2 = require('simple-oauth2')(credentials);
-
-// Authorization oauth2 URI
-var authorization_uri = oauth2.authCode.authorizeURL({
-  redirect_uri: 'http://localhost:8000/callback',
-  scope: '/activities/update /authenticate',
-  state: 'nope'
-});
-
 
 var app = express();
 app.set('view engine', 'ejs');
 app.use(require('connect-livereload')({port: 35729}));
 app.use(express.static(__dirname + '/public'));
-
+app.use(bodyParser.urlencoded({ extended: false }))
   
-// index page 
-app.get('/', function(req, res) {
-  res.render('pages/index', {
-    min: process.env.MINIMIZE == 'true' ? '.min':''
-  });
-});
+// Set the client credentials and the OAuth2 server
+var credentials = {
+  clientID: '',
+  clientSecret: '',
+  site: 'https://sandbox.orcid.org',
+  tokenPath:'https://api.sandbox.orcid.org/oauth/token'
+};
+
+// Initialize the OAuth2 Library
+var oauth2 = require('simple-oauth2')(credentials);  
   
 //Local variables  
 var my_token = '';
@@ -47,7 +31,14 @@ var get_record_msg = {
 			headers: {				
 				'Accept': 'application/vnd.orcid+xml'
 			} // We will need to add the authorization header here, like this: 'Authorization': 'Bearer [bearer]',
-		};
+		};  
+  
+// index page 
+app.get('/', function(req, res) {
+  res.render('pages/index', {
+    min: process.env.MINIMIZE == 'true' ? '.min':''
+  });
+});
   
 app.get('/introduction', function(req, res) {
 	res.render('pages/introduction');
@@ -60,12 +51,26 @@ app.get('/accessing-api', function(req, res) {
 app.get('/using-api', function(req, res) {
 	res.render('pages/using_api');
 });    
-  
-  
-  
-app.get('/get-auth', function(req, res) {
-	res.redirect(authorization_uri);
+
+app.get('/get-authorization-code', function(req, res) {
+	res.render('pages/get_authorization_code');
 });
+
+app.post('/get-authorization-code-action', function(req, res) {
+	console.log('Client ID!:');
+	console.log(req.body.client_id);
+	credentials.clientID = req.body.client_id;
+	credentials.clientSecret = req.body.secret;
+	
+	var authorization_uri = oauth2.authCode.authorizeURL({
+		redirect_uri: 'http://localhost:8000/callback',
+		scope: '/activities/update /authenticate',
+		state: 'nope'
+	});  
+	
+	res.redirect(authorization_uri);
+});  
+
 
 //curl -H 'Accept: application/orcid+xml' 'http://pub.sandbox.orcid.org/v2.0_rc1/0000-0002-3373-1120/activities'
 // Get the access token object (the authorization code is given from the previous step).

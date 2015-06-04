@@ -18,7 +18,8 @@
     "gulp-uglify": "^1.2.0",
     "ejs": "^1.0.0",
     "nodelint": "^0.6.2",
-    "simple-oauth2": "https://github.com/ORCID/simple-oauth2/archive/MASTER_2015_06_03.tar.gz"
+    "simple-oauth2": "https://github.com/ORCID/simple-oauth2/archive/MASTER_2015_06_03.tar.gz",
+	"body-parser": "^1.12.4"
   },
   "devDependencies": {
     "connect-livereload": "^0.5.3",
