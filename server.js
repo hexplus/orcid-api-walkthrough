@@ -89,19 +89,20 @@ app.get('/get-record', function(req, res){
 	get_record_msg.path = get_record_msg.path.replace('[orcid]', my_token.token.orcid);
 	console.log('Request will be:' + JSON.stringify(get_record_msg))
 	
-	var profile = '';
+	var record_data = '';
 	
 	var req_get_record = https.request(get_record_msg, function(res) {
 		console.log("statusCode: ", res.statusCode);		
 		res.on('data', function(d) {
-			profile += d;			
+			record_data += d;			
 		});
 		res.on('error', function(e){
 			console.error(e);
 		});
-		res.on('end', function(){
-			console.log('All Data:');
-			console.log(profile);
+		res.on('end', function(res){
+			res.render('pages/record', {
+				'record': record_data
+			})
 		}); 
 	});
 	
