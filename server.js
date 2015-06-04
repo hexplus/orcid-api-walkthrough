@@ -24,7 +24,7 @@ var authorization_uri = oauth2.authCode.authorizeURL({
 
 var app = express();
 app.set('view engine', 'ejs');
-//app.use(require('connect-livereload')({port: 35729}));
+app.use(require('connect-livereload')({port: 35729}));
 app.use(express.static(__dirname + '/public'));
 
   
