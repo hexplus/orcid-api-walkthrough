@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+	<title>ORCID Walkthrough - Introduction</title>
+	 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css">
+	<link rel="stylesheet" href="gulp_derived/css/style.css"> 
+</head>
+<body>
+	<div id="wizard">
+		<div class="steps-pane-container">
+			<div class="logo">
+				<img src="img/orcid-logo.png" alt="">
+			</div>
+			<ul>
+				<li class="step current-step">Introduction</li>
+				<li class="step">Accessing the API</li>
+				<li class="step">Using the API</li>
+				<li class="step">Get access token</li>
+				<li class="step">Get token</li>
+				<li class="step">Show token</li>
+				<li class="step">Read record</li>
+				<li class="step">Update record</li>				
+			</ul>
+		</div>
+		<div class="contents-pane-container">
+			<div class="contents-pane">
+				<!-- Introduction -->
+				<div title="Introduction">
+					<h2>Introduction</h2>
+					<p>ORCID offers several APIs (Application Programming Interfaces) that allow your systems to intreact with the ORCID registry:</p>
+					<ul>
+						<li><b>Public API:</b> Freely available to anyone</li>
+						<li><b>Member API:</b> Available to organizations that support ORCID with an annual membership subscription</li>
+					</ul>
+					<p>Using the APIs, your system can:</p>
+					<table class="api-chart">
+						<tbody>
+							<tr><td><img src="img/ID_symbol.svg"></td><td><h3>Get iDs</h3></td><td>Prompt users to provide their ORCID iD using our authentication system</td><td><b>Public / Member</b></td></tr>
+							<tr><td><img src="img/glyphicons-28-search-A6CE39.svg"></td><td><h3>Search</h3></td><td>Run automated searches of the ORCID registry</td><td><b>Public / Member</b></td></tr>
+							<tr><td><img src="img/glyphicons-52-eye-open-A6CE39.svg"></td><td><h3>Read</h3></td><td>Retrieve data from ORCID records (and copy it into your system)</td><td><b>Public / Member</b></td></tr>
+							<tr><td><img src="img/glyphicons-31-pencil-A6CE39.svg"></td><td><h3>WRITE</h3></td><td>Add/update new works, funding items, affiliations & biographical information</td><td><b>Member</b></td></tr>
+							 <tr><td><img src="img/glyphicons-433-plus-A6CE39.svg"></td><td><h3>Create</h3></td><td>Create new ORCID records for your researchers using an "on-demand" process</td><td><b>Member</b></td></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="wizard-btn-container">
+			<a class="wizard-nav-btn wizard-previous-button disabled-button" href="#">Back</a>
+            <a class="wizard-nav-btn wizard-next-button" href="/accessing-api">Next</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -49,10 +49,15 @@ var get_record_msg = {
 			} // We will need to add the authorization header here, like this: 'Authorization': 'Bearer [bearer]',
 		};
   
-// Redirect example using Express (see http://expressjs.com/api.html#res.redirect)
+app.get('/introduction', function(req, res) {
+	res.render('pages/introduction');
+});
+  
+app.get('/accessing-api', function(req, res) {
+	res.render('pages/accessing_api');
+});  
+  
 app.get('/get-auth', function(req, res) {
-	console.log('This is working')
-	// Prepare the context
 	res.redirect(authorization_uri);
 });
 
@@ -116,7 +121,9 @@ app.get('/get-record', function(req, res){
 	req_get_record.end();		
 });
 
-
+app.get('/add-work', function(req, res){
+	
+});
 
 app.listen(port, function (){
   console.log('server started on ' + port);
