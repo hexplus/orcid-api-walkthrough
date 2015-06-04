@@ -76,7 +76,10 @@ app.get('/callback', function(req, res) {
 // TODO: make show-work page
 app.get('/show-token', function(req, res) {
 	console.log('Token is: ' + JSON.stringify(my_token));	
-	res.redirect('http://localhost:8000/get-record');
+	//res.redirect('http://localhost:8000/get-record');
+	res.render('pages/token', {
+        'token': my_token.token.access_token
+      })
 });
 
 app.get('/get-record', function(req, res){
@@ -86,16 +89,20 @@ app.get('/get-record', function(req, res){
 	get_record_msg.path = get_record_msg.path.replace('[orcid]', my_token.token.orcid);
 	console.log('Request will be:' + JSON.stringify(get_record_msg))
 	
+	var profile = '';
+	
 	var req_get_record = https.request(get_record_msg, function(res) {
 		console.log("statusCode: ", res.statusCode);		
 		res.on('data', function(d) {
-			console.info('GET result after POST:\n');
-			process.stdout.write(d);
-			console.info('\n\nCall completed');
+			profile += d;			
 		});
 		res.on('error', function(e){
 			console.error(e);
 		});
+		res.on('end', function(){
+			console.log('All Data:');
+			console.log(profile);
+		}); 
 	});
 	
 	req_get_record.end();		
