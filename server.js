@@ -1,4 +1,6 @@
 var express = require('express');
+var https = require('https');
+
 var port = process.env.EXPRESSPORT != undefined ? process.env.EXPRESSPORT: '8000'
 
 
@@ -38,11 +40,12 @@ app.get('/', function(req, res) {
   
 // Redirect example using Express (see http://expressjs.com/api.html#res.redirect)
 app.get('/get-auth', function(req, res) {
+	console.log("This is working")
   // Prepare the context
   res.redirect(authorization_uri);
 });
 
-
+//curl -H "Accept: application/orcid+xml" "http://pub.sandbox.orcid.org/v2.0_rc1/0000-0002-3373-1120/activities"
 // Get the access token object (the authorization code is given from the previous step).
 app.get('/callback', function(req, res) {
   var token;
@@ -53,7 +56,41 @@ app.get('/callback', function(req, res) {
   }, function(error, result){
     token = oauth2.accessToken.create(result);
     // TODO: save token here, to be read by show-work later
-    res.redirect('http://localhost:8000/show-work');
+	console.log("Token is: " + JSON.stringify(token));	
+	//res.redirect('http://localhost:8000/show-work');	
+	
+	var optionsgetmsg = {
+			host : 'pub.sandbox.orcid.org', // here only the domain name    
+			port : 443,
+			path : '/v2.0_rc1/0000-0001-6442-2876/activities', // the rest of the url with parameters if needed
+			method : 'GET', // do GET
+			headers: {
+				'Authorization': 'Bearer 782c0d26-68ca-4c4b-b484-105bf5871760',
+				'Accept': 'application/vnd.orcid+xml'
+			}
+		};
+	
+	console.info('Options prepared:');
+	console.info(optionsgetmsg);
+	console.info('Do the GET call');
+	
+	var reqGet = https.request(optionsgetmsg, function(res) {
+		console.log("statusCode: ", res.statusCode);
+		// uncomment it for header details
+		//  console.log("headers: ", res.headers);
+ 
+		res.on('data', function(d) {
+			console.info('GET result after POST:\n');
+			process.stdout.write(d);
+			console.info('\n\nCall completed');
+		});		
+	});
+	
+	reqGet.end();
+	reqGet.on('error', function(e) {
+		console.error(e);
+	});
+	
   });
 });
 
