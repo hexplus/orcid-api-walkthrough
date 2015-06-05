@@ -26,15 +26,63 @@
 			<% include ../partials/menu-toggle %>
 			<div class="contents-pane">	
 				<h2>ORCID API - Edit work</h2>
+				<p>Work as a JSON string:</p>
+				<% if (updated) { %>
+					<p style="color:red">You just updated this work!</p>
+				<% } %>
 				<pre>
 <%=work_data%>
 				</pre>
+				
+				<div>
+					<br />		
+					<p>This work is stored in ORCID with the id <%= work_id %></p>
+					<p>Title: <%= title %></p>
+					<p>Type: <%= type %></p>
+					<br />		
+					<p>Do you want to update this work?</p>
+					<form class="form-group" action="/edit-work-action" method="post">
+					<div class="form-inline">							
+						<label for="title">Title:</label>
+						<input type="text" name="title" class="form-control" value="<%= title %>"/>
+						<br />
+						<label for="type">Type:</label>
+						<select id="type" name="type">
+							<% if(type == 'BOOK') {%>
+								<option value="BOOK" selected="selected" label="Book">Book</option>
+						   <% } else { %>
+								<option value="BOOK" label="Book">Book</option>
+						   <% } %>
+						   <% if(type == 'BOOK') {%>
+								<option value="BOOK_CHAPTER" selected="selected" label="Book chapter">Book chapter</option>
+						   <% } else { %>
+								<option value="BOOK_CHAPTER" label="Book chapter">Book chapter</option>
+						   <% } %>
+						   <% if(type == 'BOOK') {%>
+								<option value="BOOK_REVIEW" selected="selected" label="Book review">Book review</option>
+						   <% } else { %>
+								<option value="BOOK_REVIEW" label="Book review">Book review</option>
+						   <% } %>
+						   <% if(type == 'BOOK') {%>
+								<option value="DICTIONARY_ENTRY" selected="selected" label="Dictionary entry">Dictionary entry</option>
+						   <% } else { %>
+								<option value="DICTIONARY_ENTRY" label="Dictionary entry">Dictionary entry</option>
+						   <% } %>
+						   <% if(type == 'BOOK') {%>
+								<option value="DISSERTATION" selected="selected" label="Dissertation">Dissertation</option>
+						   <% } else { %>
+								<option value="DISSERTATION" label="Dissertation">Dissertation</option>
+						   <% } %>
+						</select>
+						<input type="hidden" value="<%= work_id%>" name="work_id"/> 
+					</div>                            
+					<input id="submit" type="submit" class="btn btn-default" value="Edit work"/>
+				</form>
+				</div>
+				
 				<div>
 					<a href="/get-record">Want to see your profile?</a>
-				</div>
-				<div>
-					<a href="/update-work">Want to update the created work?</a>
-				</div>
+				</div>				
 			</div>				
 		<div>			
 		<div class="wizard-btn-container">

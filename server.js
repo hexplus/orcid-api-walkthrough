@@ -54,7 +54,7 @@ var get_work_msg = {
 	headers: {				
 		'Accept': 'application/json',
 		'Content-Type': 'application/json'
-	}
+	} // We will need to add the authorization header here, like this: 'Authorization': 'Bearer [bearer]',
 };
 
 var edit_work_msg = {
@@ -65,7 +65,7 @@ var edit_work_msg = {
 	headers: {				
 		'Accept': 'application/json',
 		'Content-Type': 'application/json'
-	}
+	} // We will need to add the authorization header here, like this: 'Authorization': 'Bearer [bearer]',
 };
   
 // index page 
@@ -113,7 +113,6 @@ app.get('/callback', function(req, res) {
 });
 
 app.get('/get-access-token', function(req, res) {
-	console.log('access code: ' + access_code);
 	oauth2.authCode.getToken({
 		code: access_code,
 		redirect_uri: 'http://localhost:8000/callback'
@@ -139,8 +138,7 @@ app.get('/get-record', function(req, res){
 	//Add bearer header
 	get_record_msg.headers['Authorization'] = 'Bearer ' + my_token.token.access_token;
 	//Replace the orcid placeholder in the path
-	get_record_msg.path = get_record_msg.path.replace('[orcid]', my_token.token.orcid);
-	console.log('Request will be:' + JSON.stringify(get_record_msg))
+	get_record_msg.path = get_record_msg.path.replace('[orcid]', my_token.token.orcid);	
 	
 	var record_data = '';
 	
@@ -184,10 +182,8 @@ app.post('/add-work-action', function(req, res){
 	post_work_msg.headers['Content-Length'] = content_length;
 	//Replace the orcid placeholder in the path
 	post_work_msg.path = post_work_msg.path.replace('[orcid]', my_token.token.orcid);	
-	console.log('Request will be:' + JSON.stringify(post_work_msg))
-	
-	var record_data = '';
-	var variable1 = 'This test';
+		
+	var record_data = '';	
 	var req_post_work = https.request(post_work_msg, function(resp) {		
 		resp.on('data', function(d) {
 			record_data += d;			
@@ -210,6 +206,7 @@ app.post('/add-work-action', function(req, res){
 
 app.get('/edit-work', function(req, res){
 	var work_id = req.query.work_id;	
+	var updated = req.query.updated;
 	get_work_msg.path = get_work_msg.path.replace('[orcid]', my_token.token.orcid);
 	get_work_msg.path = get_work_msg.path.replace('[work_id]', work_id);
 	get_work_msg.headers['Authorization'] = 'Bearer ' + my_token.token.access_token;
@@ -217,15 +214,20 @@ app.get('/edit-work', function(req, res){
 	
 	var req_get_work = https.request(get_work_msg, function(resp) {			
 		resp.on('data', function(d) {
-			console.log('More data');
 			work_data += d;			
 		});
 		resp.on('error', function(e){
 			console.error(e);
 		});
 		resp.on('end', function(){
+			var work_obj = JSON.parse(work_data);
 			res.render('pages/edit_work', {				
-				'work_data': work_data
+				'work_data': work_data,
+				'work_id': work_obj['put-code'],
+				'title': work_obj.title.title.value,
+				'type': work_obj.type,
+				'visibility': work_obj.visibility,
+				'updated': updated
 			})
 		}); 
 	});
@@ -233,12 +235,49 @@ app.get('/edit-work', function(req, res){
 	req_get_work.end();			
 });
 
-
-
-
-
-
 app.post('/edit-work-action', function(req, res){
+	var work_id = req.body.work_id;
+	var work_title = req.body.title;
+	var work_type = req.body.type;
+	
+	var edit_work = {
+		'put-code': work_id,
+		title : { title : work_title},
+		type : work_type
+	}
+		
+	var work_string = JSON.stringify(edit_work);
+	var content_length = edit_work.length
+	
+	console.log('Editing work')
+	
+	//Add bearer header
+	edit_work_msg.headers['Authorization'] = 'Bearer ' + my_token.token.access_token;
+	//Add content length
+	edit_work_msg.headers['Content-Length'] = content_length;
+	//Replace the orcid place holder in the path
+	edit_work_msg.path = edit_work_msg.path.replace('[orcid]', my_token.token.orcid);	
+	//Replace the work_id place holder in the path
+	edit_work_msg.path = edit_work_msg.path.replace('[work_id]', work_id);	
+	
+	var work_data = '';	
+	var req_put_work = https.request(edit_work_msg, function(resp) {		
+		resp.on('data', function(d) {
+			work_data += d;			
+		});
+		resp.on('error', function(e){
+			console.error(e);
+		});
+		resp.on('end', function(){			
+			var work_obj = JSON.parse(work_data);
+			console.log('Updted work obj:');
+			console.log(JSON.stringify(work_obj));
+			res.redirect('http://localhost:8000/edit-work?work_id=' + work_id + '&updated=true');
+		}); 
+	});
+	req_post_work.write(work_string);
+	req_post_work.end();
+	
 });
 
 
