@@ -27,7 +27,12 @@
 				<h2>ORCID API - Adding a work</h2>
 				<p>Here, we create a new work and add it to the record of user <%= orcid %></p>
 				<% if (success_message) { %>
-					<p><%= success_message %></p>
+					<br />
+					<p style="color:red"><%= success_message %></p>
+					<div>
+						<a href="/edit-work?work_id=<%= work_id %>">Want to see how it look?</a>
+					</div>
+					<br />
 				<% } %>								
 				<form class="form-group" action="/add-work-action" method="post">
 					<div class="form-inline">							
@@ -47,10 +52,7 @@
 				</form>			
 				<div>
 					<a href="/get-record">Want to see your profile?</a>
-				</div>
-				<div>
-					<a href="/edit-work">Want to edit the created work?</a>
-				</div>
+				</div>				
 			</div>				
 		<div>			
 		<div class="wizard-btn-container">
