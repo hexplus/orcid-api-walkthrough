@@ -247,9 +247,9 @@ app.post('/edit-work-action', function(req, res){
 	}
 		
 	var work_string = JSON.stringify(edit_work);
-	var content_length = edit_work.length
+	var content_length = work_string.length
 	
-	console.log('Editing work')
+	console.log('content lenght: ' + content_length)
 	
 	//Add bearer header
 	edit_work_msg.headers['Authorization'] = 'Bearer ' + my_token.token.access_token;
@@ -259,6 +259,8 @@ app.post('/edit-work-action', function(req, res){
 	edit_work_msg.path = edit_work_msg.path.replace('[orcid]', my_token.token.orcid);	
 	//Replace the work_id place holder in the path
 	edit_work_msg.path = edit_work_msg.path.replace('[work_id]', work_id);	
+	
+	console.log(JSON.stringify(edit_work_msg))
 	
 	var work_data = '';	
 	var req_put_work = https.request(edit_work_msg, function(resp) {		
@@ -275,8 +277,8 @@ app.post('/edit-work-action', function(req, res){
 			res.redirect('http://localhost:8000/edit-work?work_id=' + work_id + '&updated=true');
 		}); 
 	});
-	req_post_work.write(work_string);
-	req_post_work.end();
+	req_put_work.write(work_string);
+	req_put_work.end();
 	
 });
 
