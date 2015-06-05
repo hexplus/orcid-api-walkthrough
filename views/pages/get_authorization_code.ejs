@@ -2,9 +2,7 @@
 <html>
 <head>
 	<title>ORCID Walkthrough - Introduction</title>
-	 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css">
-	<link rel="stylesheet" href="gulp_derived/css/style.css"> 
-</head>
+	<% include ../partials/head %>
 <body>
 	<div id="wizard">
 		<div class="steps-pane-container">
@@ -23,6 +21,7 @@
 			</ul>
 		</div>
 		<div class="contents-pane-container">
+			<% include ../partials/menu-toggle %>
 			<div class="contents-pane">
 				<!-- Get access code -->
 				<div title="Get access code">
