@@ -4,7 +4,6 @@
   "description": "A walkthrough page that will show you how the orcid api works and how you can interact with it",
   "main": "gulpfile.js",
   "dependencies": {
-    "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.2.0",
     "gulp-cache": "^0.2.9",
     "gulp-concat": "^2.5.2",
