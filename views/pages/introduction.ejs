@@ -2,9 +2,7 @@
 <html>
 <head>
 	<title>ORCID Walkthrough - Introduction</title>
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css">
-	<link rel="stylesheet" href="gulp_derived/css/style.css"> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<% include ../partials/head %>
 </head>
 <body>
 	<div id="wizard">
@@ -27,12 +25,7 @@
 		</div>
 		<div class="contents-pane-container">
 
-			<a id="btn-menu-toggle">Menu</a>
-			<script>
-				$( "#btn-menu-toggle" ).click(function() {
-				  $( ".steps-pane-container" ).toggleClass("show-menu");
-				});
-			</script>
+			<% include ../partials/menu-toggle %>
 
 			<div class="contents-pane">
 				
