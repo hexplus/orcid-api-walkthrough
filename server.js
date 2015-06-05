@@ -24,7 +24,7 @@ var oauth2 = require('simple-oauth2')(credentials);
 //Local variables  
 var access_code = '';
 var my_token = '';
-var new_work_path = '';
+var new_work_id = '';
 
 var get_record_msg = {
 	host : 'api.sandbox.orcid.org', 
@@ -46,6 +46,28 @@ var post_work_msg = {
 		'Content-Type': 'application/json'
 	} // We will need to add the authorization header here, like this: 'Authorization': 'Bearer [bearer]',
 };		
+
+var get_work_msg = {
+	host : 'api.sandbox.orcid.org', 
+	port : 443,
+	path : '/v2.0_rc1/[orcid]/work/[work_id]', 
+	method : 'GET',
+	headers: {				
+		'Accept': 'application/json',
+		'Content-Type': 'application/json'
+	}
+};
+
+var edit_work_msg = {
+	host : 'api.sandbox.orcid.org', 
+	port : 443,
+	path : '/v2.0_rc1/[orcid]/work/[work_id]', 
+	method : 'PUT',
+	headers: {				
+		'Accept': 'application/json',
+		'Content-Type': 'application/json'
+	}
+};
   
 // index page 
 app.get('/', function(req, res) {
@@ -123,8 +145,7 @@ app.get('/get-record', function(req, res){
 	
 	var record_data = '';
 	
-	var req_get_record = https.request(get_record_msg, function(resp) {
-		console.log('statusCode: ', res.statusCode);		
+	var req_get_record = https.request(get_record_msg, function(resp) {			
 		resp.on('data', function(d) {
 			record_data += d;			
 		});
@@ -144,24 +165,10 @@ app.get('/get-record', function(req, res){
 
 app.get('/add-work', function(req, res){	
 	res.render('pages/add_work', {
-        'orcid': my_token.token.orcid	
+        'orcid': my_token.token.orcid,
+		'success_message': ''		
       })
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.post('/add-work-action', function(req, res){
 	var new_work = {
@@ -191,10 +198,7 @@ app.post('/add-work-action', function(req, res){
 			console.error(e);
 		});
 		resp.on('end', function(){
-			console.log('Done!');
-			new_work_path = resp.headers.location;
-			console.log(new_work_path);
-			success_message = 'Your works has been added';
+			new_work_id = (resp.headers.location).lastIndexOf('/') + 1;
 			res.render('pages/add_work', {
 				'orcid': my_token.token.orcid,
 				'success_message': 'Your work has been added!'
@@ -205,9 +209,38 @@ app.post('/add-work-action', function(req, res){
 	req_post_work.end();				
 });
 
+app.get('/edit-work', function(req, res){
+	get_work_msg.path = get_work_msg.path.replace('[orcid]', my_token.token.orcid);
+	get_work_msg.path = get_work_msg.path.replace('[work_id]', new_work_id);
+	console.log('Request will be:' + JSON.stringify(get_work_msg))
+	console.log('Getting work info');
+	var work_data = '';
+	
+	var req_get_work = https.request(get_work_msg, function(resp) {			
+		resp.on('data', function(d) {
+			console.log('More data');
+			work_data += d;			
+		});
+		resp.on('error', function(e){
+			console.error(e);
+		});
+		resp.on('end', function(){
+			res.render('pages/edit_work', {				
+				'work_data': work_data
+			})
+		}); 
+	});
+	
+	req_get_work.end();			
+});
 
 
 
+
+
+
+app.post('/edit-work-action', function(req, res){
+});
 
 
 

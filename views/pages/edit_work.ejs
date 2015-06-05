@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+	<title>ORCID Walkthrough - Edit work</title>
+	<% include ../partials/head %>
+</head>
+<body>
+	<div id="wizard">
+		<div class="steps-pane-container">
+			<div class="logo">
+				<img src="img/orcid-logo.png" alt="">
+			</div>
+			<ul>
+				<li class="step">Introduction</li>
+				<li class="step">Accessing the API</li>
+				<li class="step">Using the API</li>
+				<li class="step">Get authorization code</li>
+				<li class="step">Get token</li>
+				<li class="step">Show token</li>
+				<li class="step">Read record</li>
+				<li class="step">Update record</li>				
+				<li class="step current-step">Edit work</li>
+			</ul>
+		</div>
+		<div class="contents-pane-container">
+			<% include ../partials/menu-toggle %>
+			<div class="contents-pane">	
+				<h2>ORCID API - Edit work</h2>
+				<pre>
+<%=work_data%>
+				</pre>
+				<div>
+					<a href="/get-record">Want to see your profile?</a>
+				</div>
+				<div>
+					<a href="/update-work">Want to update the created work?</a>
+				</div>
+			</div>				
+		<div>			
+		<div class="wizard-btn-container">
+			<a class="wizard-nav-btn wizard-previous-button disabled-button" href="#">Back</a>
+            <a class="wizard-nav-btn wizard-next-button disabled-button" href="#">Next</a>
+		</div>		
+	</div>
+</head>
+</html>
