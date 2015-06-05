@@ -22,6 +22,7 @@ var credentials = {
 var oauth2 = require('simple-oauth2')(credentials);  
   
 //Local variables  
+var access_code = '';
 var my_token = '';
 var get_record_msg = {
 	host : 'api.sandbox.orcid.org', 
@@ -82,16 +83,27 @@ app.post('/get-authorization-code-action', function(req, res) {
 
 // Get the access token object (the authorization code is given from the previous step).
 app.get('/callback', function(req, res) {
-  var token;
-  var code = req.query.code;
-  oauth2.authCode.getToken({
-    code: code,
-    redirect_uri: 'http://localhost:8000/callback'
-  }, function(error, result){
-    my_token = oauth2.accessToken.create(result);
-    res.redirect('http://localhost:8000/show-token');		
-  });
+	access_code = req.query.code;
+	res.render('pages/show_authorization_code', {
+		'access_code' : access_code
+	});
 });
+
+app.get('/get-access-token', function(req, res) {
+	console.log('access code: ' + access_code);
+	oauth2.authCode.getToken({
+		code: access_code,
+		redirect_uri: 'http://localhost:8000/callback'
+	}, function(error, result){
+		my_token = oauth2.accessToken.create(result);
+		res.redirect('http://localhost:8000/show-token');		
+	});
+});
+
+
+
+
+
 
 app.get('/show-token', function(req, res) {
 	res.render('pages/token', {
