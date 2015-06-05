@@ -25,24 +25,33 @@
 		<div class="contents-pane-container">
 			<div class="contents-pane">	
 				<h2>ORCID API - Adding a work</h2>
-					<p>Here, we create a new work and add it to the record of user <%= orcid %></p>
-					<form class="form-group" action="/add-work-action" method="post">
-						<div class="form-inline">							
-							<label for="title">Title:</label>
-							<input type="text" name="title" class="form-control"/>
-							<br />
-							<label for="type">Type:</label>
-							<select id="type" name="type">
-							   <option value="BOOK" selected="selected" label="Book">Book</option>
-							   <option value="BOOK_CHAPTER" label="Book chapter">Book chapter</option>
-							   <option value="BOOK_REVIEW" label="Book review">Book review</option>
-							   <option value="DICTIONARY_ENTRY" label="Dictionary entry">Dictionary entry</option>
-							   <option value="DISSERTATION" label="Dissertation">Dissertation</option>
-							</select>
-						</div>                            
-						<input id="submit" type="submit" class="btn btn-default" value="Get authorization code"/>
-					</form>			
-			</div>						
+				<p>Here, we create a new work and add it to the record of user <%= orcid %></p>
+				<% if (success_message) { %>
+					<p><%= success_message %></p>
+				<% } %>								
+				<form class="form-group" action="/add-work-action" method="post">
+					<div class="form-inline">							
+						<label for="title">Title:</label>
+						<input type="text" name="title" class="form-control"/>
+						<br />
+						<label for="type">Type:</label>
+						<select id="type" name="type">
+						   <option value="BOOK" selected="selected" label="Book">Book</option>
+						   <option value="BOOK_CHAPTER" label="Book chapter">Book chapter</option>
+						   <option value="BOOK_REVIEW" label="Book review">Book review</option>
+						   <option value="DICTIONARY_ENTRY" label="Dictionary entry">Dictionary entry</option>
+						   <option value="DISSERTATION" label="Dissertation">Dissertation</option>
+						</select>
+					</div>                            
+					<input id="submit" type="submit" class="btn btn-default" value="Add work"/>
+				</form>			
+				<div>
+					<a href="/get-record">Want to see your profile?</a>
+				</div>
+				<div>
+					<a href="/update-work">Want to update the created work?</a>
+				</div>
+			</div>				
 		<div>			
 		<div class="wizard-btn-container">
 			<a class="wizard-nav-btn wizard-previous-button disabled-button" href="#">Back</a>

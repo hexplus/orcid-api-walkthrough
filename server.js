@@ -24,6 +24,8 @@ var oauth2 = require('simple-oauth2')(credentials);
 //Local variables  
 var access_code = '';
 var my_token = '';
+var new_work_path = '';
+
 var get_record_msg = {
 	host : 'api.sandbox.orcid.org', 
 	port : 443,
@@ -100,11 +102,6 @@ app.get('/get-access-token', function(req, res) {
 	});
 });
 
-
-
-
-
-
 app.get('/show-token', function(req, res) {
 	res.render('pages/token', {
         'access_token': my_token.token.access_token,
@@ -145,11 +142,26 @@ app.get('/get-record', function(req, res){
 	req_get_record.end();		
 });
 
-app.get('/add-work', function(req, res){
+app.get('/add-work', function(req, res){	
 	res.render('pages/add_work', {
-        'orcid': my_token.token.orcid		
+        'orcid': my_token.token.orcid	
       })
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.post('/add-work-action', function(req, res){
 	var new_work = {
@@ -169,7 +181,7 @@ app.post('/add-work-action', function(req, res){
 	console.log('Request will be:' + JSON.stringify(post_work_msg))
 	
 	var record_data = '';
-	
+	var variable1 = 'This test';
 	var req_post_work = https.request(post_work_msg, function(resp) {
 		console.log('statusCode: ', res.statusCode);		
 		resp.on('data', function(d) {
@@ -180,12 +192,34 @@ app.post('/add-work-action', function(req, res){
 		});
 		resp.on('end', function(){
 			console.log('Done!');
-			console.log(record_data);
+			new_work_path = resp.headers.location;
+			console.log(new_work_path);
+			success_message = 'Your works has been added';
+			res.render('pages/add_work', {
+				'orcid': my_token.token.orcid,
+				'success_message': 'Your work has been added!'
+			})
 		}); 
 	});
 	req_post_work.write(work_string);
 	req_post_work.end();				
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port, function (){
   console.log('server started on ' + port);
