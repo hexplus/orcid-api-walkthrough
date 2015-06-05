@@ -111,8 +111,9 @@ tr:last-of-type{
 .steps-pane-container {
 	border: none;
 	float: left;
-	min-width: 15%;
-	width: auto;
+	//min-width: 15%;
+	//width: auto;
+	width: 20%;
 	height: 100vh;
 	box-sizing: border-box;
 	background: none repeat scroll 0 0 #FFFFFF;
@@ -169,8 +170,9 @@ tr:last-of-type{
 .contents-pane-container {
 	float: left;
 	padding: 15px;
-	min-width: 85%;
-	width: auto;
+	//min-width: 85%;
+	//width: auto;
+	width: 80%;
 	height: 100vh;
 	position: relative;
 	box-sizing: border-box;
