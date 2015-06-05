@@ -235,3 +235,11 @@ p.description {
 	float: left;
 }
 
+//if mobile, hide the menu
+
+@media all and (max-width:48.000em){
+.steps-pane-container { float: left; margin-left: -100%; width: 300px; z-index: 2; }
+.contents-pane-container { float: left; margin-left: 0; width: 100%; }
+}
+
+

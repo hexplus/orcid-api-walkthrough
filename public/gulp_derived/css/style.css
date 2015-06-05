@@ -188,3 +188,15 @@ tr:last-of-type {
 p.description {
   padding: 0;
   float: left; }
+
+@media all and (max-width: 48em) {
+  .steps-pane-container {
+    float: left;
+    margin-left: -100%;
+    width: 300px;
+    z-index: 2; }
+
+  .contents-pane-container {
+    float: left;
+    margin-left: 0;
+    width: 100%; } }
